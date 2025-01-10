@@ -15,7 +15,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
 -- Tabla Categorías
 CREATE TABLE IF NOT EXISTS categorias (
     id_categoria INT AUTO_INCREMENT PRIMARY KEY,
-    nombre_categoria VARCHAR(50) NOT NULL
+    nombre_categoria VARCHAR(50) NOT NULL,
+    imagen_url VARCHAR(250),
 ) ENGINE=InnoDB;
 
 -- Tabla Restaurantes
