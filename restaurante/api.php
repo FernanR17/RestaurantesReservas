@@ -4,14 +4,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     header('Access-Control-Allow-Credentials: true');
     header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
     header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept');
-    header('Access-Control-Max-Age: 86400'); // Cache de preflight
     exit(0);
 }
 
-header('Access-Control-Allow-Origin: http://localhost:3000'); // Cambiar * por la URL específica
-header('Access-Control-Allow-Credentials: true'); // Permitir credenciales
+header('Access-Control-Allow-Origin: http://localhost:3000');
+header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept');
+
 
 
 class API
@@ -61,6 +61,16 @@ class API
                     echo json_encode(array('error' => 'Método no permitido'));
                 }
                 break;
+
+            case 'homepage': // Nuevo caso para la página principal
+                if ($method == 'GET') {
+                    $this->getHomepageData();
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Método no permitido']);
+                }
+                break;
+                
             default:
                 http_response_code(404);
                 echo json_encode(array('error' => 'Ruta no encontrada'));
@@ -134,6 +144,37 @@ class API
         if ($query->execute()) {
             http_response_code(200);
             echo json_encode(array('message' => 'Restaurante eliminado'));
+        }
+    }
+
+    function getHomepageData()
+    {
+        try {
+            // Obtener categorías
+            $queryCategorias = $this->db->prepare("SELECT id_categoria, nombre_categoria, imagen_url FROM categorias");
+            $queryCategorias->execute();
+            $categorias = $queryCategorias->fetchAll(PDO::FETCH_ASSOC);
+
+            // Obtener opiniones recientes
+            $queryOpiniones = $this->db->prepare("
+                SELECT o.id_opinion, o.comentario, o.calificacion, u.nombre AS usuario, r.nombre AS restaurante
+                FROM opiniones o
+                JOIN usuarios u ON o.id_usuario = u.id_usuario
+                JOIN restaurantes r ON o.id_restaurante = r.id_restaurante
+                ORDER BY o.fecha_opinion DESC
+                LIMIT 6
+            ");
+            $queryOpiniones->execute();
+            $opiniones = $queryOpiniones->fetchAll(PDO::FETCH_ASSOC);
+
+            // Respuesta combinada
+            echo json_encode([
+                'categorias' => $categorias,
+                'opiniones' => $opiniones
+            ]);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al obtener los datos: ' . $e->getMessage()]);
         }
     }
 }
