@@ -12,8 +12,6 @@ header('Access-Control-Allow-Credentials: true');
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With, Accept');
 
-
-
 class API
 {
     private $db;
@@ -70,7 +68,44 @@ class API
                     echo json_encode(['error' => 'Método no permitido']);
                 }
                 break;
-                
+
+            case 'opiniones':
+                if ($method == 'GET' && isset($request[1])) {
+                    $this->getOpinionesPorRestaurante($request[1]);
+                } else {
+                    http_response_code(404);
+                    echo json_encode(['error' => 'Ruta no encontrada']);
+                }
+                break;
+
+            case 'auth':
+                if ($method == 'POST') {
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    if (isset($request[1]) && $request[1] == 'register') {
+                        $this->registerUser($data);
+                    } elseif (isset($request[1]) && $request[1] == 'login') {
+                        $this->loginUser($data);
+                    } else {
+                        http_response_code(404);
+                        echo json_encode(['error' => 'Ruta no encontrada']);
+                    }
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Método no permitido']);
+                }
+                break;
+
+            case 'register': // Ruta para el registro de usuarios
+                if ($method == 'POST') { // Solo acepta POST
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $this->registerUser($data);
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Método no permitido']);
+                }
+                break;
+
+
             default:
                 http_response_code(404);
                 echo json_encode(array('error' => 'Ruta no encontrada'));
@@ -175,6 +210,75 @@ class API
         } catch (PDOException $e) {
             http_response_code(500);
             echo json_encode(['error' => 'Error al obtener los datos: ' . $e->getMessage()]);
+        }
+    }
+
+    function getOpinionesPorRestaurante($id_restaurante)
+    {
+        $query = $this->db->prepare("
+            SELECT o.comentario, o.calificacion, u.nombre AS usuario
+            FROM opiniones o
+            JOIN usuarios u ON o.id_usuario = u.id_usuario
+            WHERE o.id_restaurante = :id_restaurante
+            ORDER BY o.calificacion DESC
+            LIMIT 3
+        ");
+        $query->bindParam(':id_restaurante', $id_restaurante, PDO::PARAM_INT);
+        $query->execute();
+        $opiniones = $query->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($opiniones);
+    }
+
+    function registerUser($data)
+    {
+        try {
+            $query = $this->db->prepare("
+                INSERT INTO usuarios (nombre, email, password, telefono, rol) 
+                VALUES (:nombre, :email, :password, :telefono, 'cliente')
+            ");
+            $hashedPassword = password_hash($data['password'], PASSWORD_DEFAULT); // Generar el hash
+            $query->bindParam(':nombre', $data['nombre']);
+            $query->bindParam(':email', $data['email']);
+            $query->bindParam(':password', $hashedPassword); // Pasar la variable con el hash
+            $query->bindParam(':telefono', $data['telefono']);
+
+            if ($query->execute()) {
+                http_response_code(201);
+                echo json_encode(['message' => 'Usuario registrado exitosamente.']);
+            }
+        } catch (PDOException $e) {
+            $errorCode = $e->getCode();
+            if ($errorCode == 23000) {
+                http_response_code(400);
+                echo json_encode(['error' => 'El correo electrónico ya está registrado.']);
+            } else {
+                http_response_code(500);
+                echo json_encode(['error' => 'Ocurrió un error interno.']);
+            }
+        }
+    }
+
+    function loginUser($data)
+    {
+        try {
+            $query = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email");
+            $query->bindParam(':email', $data['email']);
+            $query->execute();
+            $user = $query->fetch(PDO::FETCH_ASSOC);
+
+            if ($user && password_verify($data['password'], $user['password'])) {
+                http_response_code(200);
+                echo json_encode([
+                    'message' => 'Inicio de sesión exitoso',
+                    'user' => ['id_usuario' => $user['id_usuario'], 'nombre' => $user['nombre'], 'rol' => $user['rol']]
+                ]);
+            } else {
+                http_response_code(401);
+                echo json_encode(['error' => 'Credenciales inválidas']);
+            }
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al iniciar sesión: ' . $e->getMessage()]);
         }
     }
 }

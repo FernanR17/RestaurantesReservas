@@ -1,0 +1,17 @@
+.slick-dots li button:before {
+    color: #1d4ed8;
+    /* Cambia el color de los puntos */
+    font-size: 12px;
+}
+
+/* ----------------------------------- */
+
+.custom-slider {
+    padding: 0 60px;
+    /* Aumenta el espacio a ambos lados */
+}
+
+.custom-slider .slick-list {
+    overflow: hidden;
+    /* Evita desbordamientos hacia los lados */
+}
