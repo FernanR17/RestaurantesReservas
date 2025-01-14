@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS usuarios (
     id_usuario INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    contraseña VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     telefono VARCHAR(15),
     rol ENUM('cliente', 'restaurante', 'admin') NOT NULL,
     fecha_registro DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS restaurantes (
     horario_cierre TIME NOT NULL,
     descripcion TEXT,
     capacidad_maxima INT NOT NULL,
+    mapa_url VARCHAR(500) NULL,
     id_usuario INT,
     id_categoria INT,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS reservas (
     id_reserva INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
     id_restaurante INT NOT NULL,
+    fecha_creacion DATETIME DEFAULT CURRENT_TIMESTAMP,
     fecha_reserva DATE NOT NULL,
     hora_reserva TIME NOT NULL,
     numero_personas INT NOT NULL,
@@ -67,7 +69,7 @@ ALTER TABLE restaurantes ADD COLUMN IF NOT EXISTS id_categoria INT;
 ALTER TABLE restaurantes ADD FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria);
 
 -- Insertar datos en Usuarios
-INSERT INTO usuarios (nombre, email, contraseña, telefono, rol) VALUES
+INSERT INTO usuarios (nombre, email, password, telefono, rol) VALUES
 ('Usuario 1', 'usuario1@correo.com', 'password1', '555-1234', 'cliente'),
 ('Usuario 2', 'usuario2@correo.com', 'password2', '555-5678', 'cliente'),
 ('Usuario 3', 'usuario3@correo.com', 'password3', '555-9101', 'cliente'),
@@ -102,7 +104,7 @@ INSERT INTO restaurantes (nombre, ubicacion, categoria, horario_apertura, horari
 ('Restaurante 5', 'Ubicación 5', 'italiano', '10:00:00', '22:00:00', 'Descripción del Restaurante 5', 15, 1, 90);
 
 -- Insertar datos en Reservas
-INSERT INTO reservas (id_usuario, id_restaurante, fecha_reserva, hora_reserva, numero_personas, estado, comentarios) VALUES
+INSERT INTO reservas (id_usuario, id_restaurante, fecha_creacion, fecha_reserva, hora_reserva, numero_personas, estado, comentarios) VALUES
 (1, 1, '2025-01-08', '12:00:00', 4, 'pendiente', 'Reserva de prueba 1'),
 (2, 2, '2025-01-09', '14:00:00', 2, 'confirmada', 'Reserva de prueba 2');
 

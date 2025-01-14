@@ -8,7 +8,8 @@ const LoginPage = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-    const { setUser } = useContext(UserContext);
+
+    const { login } = useContext(UserContext);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -83,7 +84,8 @@ const LoginPage = () => {
 
                 if (response.data?.user) {
                     const { user } = response.data;
-                    setUser(response.data.user);
+                    const userData = response.data.user;
+                    login(userData);
 
                     Swal.fire({
                         title: "Inicio de sesión exitoso",

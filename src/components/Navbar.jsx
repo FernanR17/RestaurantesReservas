@@ -14,7 +14,7 @@ const Navbar = () => {
         <header className="bg-blue-700 text-white py-4">
             <nav className="container mx-auto px-4 flex justify-between items-center">
                 <h1 className="text-2xl font-bold">
-                    <Link to={'/'}>Restaurantes Reservas</Link>
+                    <Link to="/">Restaurantes Reservas</Link>
                 </h1>
                 <div className="flex items-center">
                     <Link to="/catalogo" className="px-4 py-2 text-white">
@@ -30,6 +30,7 @@ const Navbar = () => {
                             </Link>
                         </>
                     )}
+
                     {user ? (
                         <button
                             onClick={handleLogout}
@@ -37,7 +38,6 @@ const Navbar = () => {
                         >
                             Cerrar Sesión
                         </button>
-
                     ) : (
                         <Link to="/login" className="px-4 py-2 bg-green-600 rounded">
                             Iniciar Sesión
@@ -50,5 +50,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-
