@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useContext } from 'react';
-import { UserContext } from '../context/UserContext';
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext } from "../context/UserContext";
 
 const Navbar = () => {
     const { user, logout } = useContext(UserContext);
@@ -20,7 +20,7 @@ const Navbar = () => {
                     <Link to="/catalogo" className="px-4 py-2 text-white">
                         Catálogo
                     </Link>
-                    {user && user.rol === 'cliente' && (
+                    {user && user.rol === "cliente" && (
                         <>
                             <Link to="/reservas" className="px-4 py-2 text-white">
                                 Mis Reservas
@@ -30,7 +30,19 @@ const Navbar = () => {
                             </Link>
                         </>
                     )}
-
+                    {user && user.rol === "restaurante" && (
+                        <>
+                            <Link to="/dashboard/restaurante" className="px-4 py-2 text-white">
+                                Dashboard
+                            </Link>
+                            <Link to="/dashboard/perfil-restaurante" className="px-4 py-2 text-white">
+                                Perfil
+                            </Link>
+                            <Link to="/perfil" className="px-4 py-2 text-white">
+                                Usuario
+                            </Link>
+                        </>
+                    )}
                     {user ? (
                         <button
                             onClick={handleLogout}

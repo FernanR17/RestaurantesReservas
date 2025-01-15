@@ -209,11 +209,6 @@ const RestaurantDetails = () => {
           </div>
         </div>
 
-        <div className="flex flex-col md:flex-row gap-8">
-
-
-        </div>
-
         <Modal
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}

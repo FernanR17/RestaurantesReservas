@@ -17,6 +17,9 @@ import RestaurantDetails from '../views/RestaurantDetails';
 
 import ProfilePage from '../views/ProfilePage';
 
+import Restaurante from '../views/Restaurante/DashboardRestaurante';
+import PerfilRestaurante from '../views/Restaurante/PerfilRestaurante';
+
 const Router = () => {
     return (
         <div>
@@ -32,7 +35,8 @@ const Router = () => {
                         <Route path="/register" element={<RegisterPage />} />
                         <Route path="/reservas" element={<Reservations />} />
                         <Route path="/perfil" element={<ProfilePage />} />
-
+                        <Route path="/dashboard/restaurante" element={<Restaurante />} />
+                        <Route path="/dashboard/perfil-restaurante" element={<PerfilRestaurante />} />
                         {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                 <Route path="/admin" element={<ProtectedRoute requiredRole="admin"><AdminPage /></ProtectedRoute>} /> */}
 

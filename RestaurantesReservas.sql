@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS restaurantes (
     descripcion TEXT,
     capacidad_maxima INT NOT NULL,
     mapa_url VARCHAR(500) NULL,
+    imagen_url VARCHAR(255) NULL,
     id_usuario INT,
     id_categoria INT,
     FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario),
