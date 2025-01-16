@@ -100,6 +100,10 @@ Guarda los comentarios y calificaciones de los clientes sobre los restaurantes.
   Asegúrate de que tu servidor PHP esté configurado para apuntar a la carpeta donde se encuentra el archivo `api.php`.
   Configura los permisos de escritura para la carpeta donde se almacenan las imágenes si usas la funcionalidad de subida.
 
+## 🌐 Manuales de usuario
+El sistema incluye manuales de usuario diseñados específicamente para cada rol dentro de la plataforma (Clientes, Restaurantes y Administradores). Estos manuales brindan instrucciones detalladas sobre cómo utilizar las funcionalidades disponibles, resolver problemas comunes y contactar al soporte técnico en caso de ser necesario.
+Pueden acceder a ellos en el siguiente enlace: https://drive.google.com/drive/folders/18Nad0BHRBbmnODD5EiamIbNz95i_C_Ch?usp=sharing
+
 🤝 Contribuciones
 ¡Las contribuciones son bienvenidas! Este proyecto se trabajo con un grupo de trabajo en un Bootcamp de la empresa Conexion El Salvador.
 Si tienes una idea para mejorar este proyecto, puedes hacer un buen pull.
