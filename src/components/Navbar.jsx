@@ -14,7 +14,7 @@ const Navbar = () => {
         <header className="bg-blue-700 text-white py-4">
             <nav className="container mx-auto px-4 flex justify-between items-center">
                 <h1 className="text-2xl font-bold">
-                    <Link to="/">Restaurantes Reservas</Link>
+                    <Link to="/">GoTable - Restaurantes Reservas</Link>
                 </h1>
                 <div className="flex items-center">
                 <Link to="/" className="px-4 py-2 text-white">
