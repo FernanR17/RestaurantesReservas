@@ -101,11 +101,11 @@ Guarda los comentarios y calificaciones de los clientes sobre los restaurantes.
   Configura los permisos de escritura para la carpeta donde se almacenan las imágenes si usas la funcionalidad de subida.
 
 ## 🌐 Manuales de usuario
-El sistema incluye manuales de usuario diseñados específicamente para cada rol dentro de la plataforma (Clientes, Restaurantes y Administradores). Estos manuales brindan instrucciones detalladas sobre cómo utilizar las funcionalidades disponibles, resolver problemas comunes y contactar al soporte técnico en caso de ser necesario. [Accede a ellos](https://drive.google.com/drive/folders/18Nad0BHRBbmnODD5EiamIbNz95i_C_Ch?usp=sharing)
+El sistema incluye manuales de usuario diseñados específicamente para cada rol dentro de la plataforma (Clientes, Restaurantes y Administradores). Estos manuales brindan instrucciones detalladas sobre cómo utilizar las funcionalidades disponibles, resolver problemas comunes y contactar al soporte técnico en caso de ser necesario. [¡Accede a ellos!](https://drive.google.com/drive/folders/18Nad0BHRBbmnODD5EiamIbNz95i_C_Ch?usp=sharing)
 
-##🤝 Contribuciones
+## 🤝 Contribuciones
 ¡Las contribuciones son bienvenidas! Este proyecto se trabajo con un grupo de trabajo en un Bootcamp de la empresa Conexion El Salvador.
 Si tienes una idea para mejorar este proyecto, puedes hacer un buen pull.
 
-##📝 Licencia
+## 📝 Licencia
 Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
