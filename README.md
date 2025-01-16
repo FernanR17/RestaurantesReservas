@@ -1,6 +1,9 @@
 # 🍴 Restaurantes Reservas
 
-Este proyecto es una aplicación web diseñada para gestionar reservas en restaurantes, proporcionando interfaces diferenciadas para administradores, restaurantes y clientes. La aplicación permite realizar un seguimiento eficiente de reservas, gestionar usuarios y administrar información clave de los restaurantes.
+Este proyecto es una aplicación web diseñada para gestionar reservas en restaurantes, proporcionando interfaces diferenciadas para administradores, restaurantes y clientes. 
+La aplicación permite realizar un seguimiento eficiente de reservas, gestionar usuarios y administrar información clave de los restaurantes.
+
+Este proyecto fue realizado para la graduacion del Bootcamp Google Developer junto a Conexion El Salvador
 
 ## 🚀 Características
 
@@ -73,11 +76,12 @@ Guarda los comentarios y calificaciones de los clientes sobre los restaurantes.
 - **Base de Datos:**
   - MySQL con tablas estructuradas para usuarios, restaurantes, reservas, categorías y opiniones.
 
-## 🌐 Instalación
+## 🌐 Instalación del Proyecto
 
 1. Clona este repositorio:
    ```bash
-   git clone https://github.com/tuusuario/restaurantes-reservas.git
+   git clone https://github.com/SpecialSKG/RestaurantesReservas.git
+   
    cd restaurantes-reservas
    
 2. Instala las dependencias del frontend:
@@ -93,5 +97,12 @@ Guarda los comentarios y calificaciones de los clientes sobre los restaurantes.
    npm start
 
 5. Configura el servidor backend:
-  Asegúrate de que tu servidor PHP esté configurado para apuntar a la carpeta donde se encuentra el archivo api.php.
+  Asegúrate de que tu servidor PHP esté configurado para apuntar a la carpeta donde se encuentra el archivo `api.php`.
   Configura los permisos de escritura para la carpeta donde se almacenan las imágenes si usas la funcionalidad de subida.
+
+🤝 Contribuciones
+¡Las contribuciones son bienvenidas! Este proyecto se trabajo con un grupo de trabajo en un Bootcamp de la empresa Conexion El Salvador.
+Si tienes una idea para mejorar este proyecto, puedes hacer un buen pull.
+
+📝 Licencia
+Este proyecto está bajo la licencia MIT. Consulta el archivo LICENSE para más detalles.
