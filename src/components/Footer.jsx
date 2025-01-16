@@ -1,23 +1,80 @@
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Link } from "react-router-dom";
+
 const Footer = () => {
-    return (
-        <>
-            <footer className="bg-blue-700 font-sans relative w-full">
-                <div className="container px-6 py-4 mx-auto">
-                    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-y-10 lg:grid-cols-4">
-                        <div className="sm:col-span-2">
-                            <h1 className="max-w-lg text-xl font-semibold tracking-tight text-gray-800 xl:text-2xl dark:text-white">Un gusto atenderle</h1>
-                        </div>
-                    </div>
+  const [opiniones, setOpiniones] = useState([]);
+  const apiUrl = "http://localhost/restaurante/api.php";
 
-                    <hr className="my-6 border-gray-200 md:my-8 dark:border-black h-2" />
+  useEffect(() => {
+    const fetchOpiniones = async () => {
+      try {
+        const res = await axios.get(`${apiUrl}/opiniones`);
+        setOpiniones(res.data);
+      } catch (error) {
+        console.error("Error al cargar opiniones:", error);
+      }
+    };
 
-                    <p className="font-sans p-8 text-start md:text-center md:text-lg md:p-2 text-white">
-                        © 2025 You Company Inc. All rights reserved.
-                    </p>
-                </div>
-            </footer>
-        </>
-    )
-}
+    fetchOpiniones();
+  }, []);
+
+  return (
+    <footer className="bg-gray-800 text-white">
+      {/* Navbar */}
+      <div className="container mx-auto px-4 py-6 flex justify-between items-center border-b border-gray-600">
+        <Link to="/" className="text-xl font-bold hover:text-indigo-400">
+          GoTable
+        </Link>
+        <nav className="flex space-x-4">
+          <Link to="/" className="hover:text-indigo-400">
+            Inicio
+          </Link>
+          <Link to="/catalogo" className="hover:text-indigo-400">
+            Catálogo
+          </Link>
+          <Link to="/reservas" className="hover:text-indigo-400">
+            Mis Reservas
+          </Link>
+        </nav>
+      </div>
+
+      {/* Redes Sociales */}
+      <div className="container mx-auto px-4 py-6 flex justify-center space-x-6">
+        <a
+          href="https://facebook.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xl hover:text-indigo-400"
+        >
+          <i className="fab fa-facebook"></i>
+        </a>
+        <a
+          href="https://twitter.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xl hover:text-indigo-400"
+        >
+          <i className="fab fa-twitter"></i>
+        </a>
+        <a
+          href="https://instagram.com"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-xl hover:text-indigo-400"
+        >
+          <i className="fab fa-instagram"></i>
+        </a>
+      </div>
+
+      {/* Footer Info */}
+      <div className="bg-gray-900 py-4 text-center">
+        <p className="text-sm text-gray-400">
+          &copy; {new Date().getFullYear()} GoTable. Todos los derechos reservados.
+        </p>
+      </div>
+    </footer>
+  );
+};
 
 export default Footer;

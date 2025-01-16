@@ -19,6 +19,8 @@ import ProfilePage from '../views/ProfilePage';
 
 import Restaurante from '../views/Restaurante/DashboardRestaurante';
 import PerfilRestaurante from '../views/Restaurante/PerfilRestaurante';
+import RegistrarRestaurante from '../views/Restaurante/RegistrarRestaurante';
+
 
 const Router = () => {
     return (
@@ -37,6 +39,7 @@ const Router = () => {
                         <Route path="/perfil" element={<ProfilePage />} />
                         <Route path="/dashboard/restaurante" element={<Restaurante />} />
                         <Route path="/dashboard/perfil-restaurante" element={<PerfilRestaurante />} />
+                        <Route path="/nuevo-restaurante" element={<RegistrarRestaurante />} />
                         {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
                 <Route path="/admin" element={<ProtectedRoute requiredRole="admin"><AdminPage /></ProtectedRoute>} /> */}
 

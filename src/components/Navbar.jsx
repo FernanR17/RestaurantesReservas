@@ -17,6 +17,9 @@ const Navbar = () => {
                     <Link to="/">Restaurantes Reservas</Link>
                 </h1>
                 <div className="flex items-center">
+                <Link to="/" className="px-4 py-2 text-white">
+                        Inicio
+                    </Link>
                     <Link to="/catalogo" className="px-4 py-2 text-white">
                         Catálogo
                     </Link>

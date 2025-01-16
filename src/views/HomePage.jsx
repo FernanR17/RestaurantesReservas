@@ -1,12 +1,25 @@
-import fondo from "../components/fondo.jpeg";
-import imagen1 from "../components/imagen1.jpg";
-import imagen2 from "../components/imagen2.jpg";
-
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+
+import imagen1 from "../components/imagen1.jpg";
+import imagen2 from "../components/imagen2.jpg";
+import imagen3 from "../components/imagen3.jpg";
+import notfound from "../components/notfound.jpg";
+import italiana from "../components/italiana.jpg";
+import mexicana from "../components/mexicana.jpeg";
+import japonesa from "../components/japonesa.jpg";
+
+const imagenesCategorias = {
+  1: italiana, // ID o nombre de categoría como clave
+  2: mexicana,
+  3: japonesa,
+  // Puedes agregar más categorías y sus respectivas imágenes
+};
+
+
 
 const HomePage = () => {
   const [categorias, setCategorias] = useState([]);
@@ -131,7 +144,7 @@ const HomePage = () => {
     arrows: true, // Ocultar flechas
   };
 
-  const imagenes = [imagen1, imagen2, fondo];
+  const imagenes = [imagen1, imagen2, imagen3];
 
   useEffect(() => {
     const fetchHomepageData = async () => {
@@ -176,7 +189,9 @@ const HomePage = () => {
                 className="bg-white shadow-md rounded-lg p-4 hover:shadow-lg"
               >
                 <img
-                  src={categoria.imagen_url || imagen1}
+                  src={
+                    imagenesCategorias[categoria.id_categoria] || categoria.imagen_url || notfound
+                  }
                   alt={categoria.nombre_categoria}
                   className="w-full h-32 object-cover rounded-md mb-4"
                 />
@@ -186,7 +201,7 @@ const HomePage = () => {
               </div>
             ))}
           </div>
-        </section>
+        </section>;
 
         {/* Botón al Catálogo */}
         <div className="text-center py-4">

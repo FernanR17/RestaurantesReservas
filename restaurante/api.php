@@ -415,35 +415,53 @@ class API
     }
 
     function createRestaurante($data)
-    {
-        try {
-            // Validar mapa_url
-            $mapa_url = isset($data['mapa_url']) && $this->isGoogleMapsEmbedUrl($data['mapa_url']) // Aquí se usa $this->
-                ? $data['mapa_url']
-                : null; // Si no es válido, usar null
+{
+    try {
+        // Validar campos obligatorios
+        if (empty($data['nombre']) || empty($data['ubicacion']) || empty($data['categoria']) || empty($data['id_usuario'])) {
+            throw new Exception("Faltan campos obligatorios (nombre, ubicación, categoría o id_usuario).");
+        }
 
-            $query = $this->db->prepare("
-            INSERT INTO restaurantes (nombre, ubicacion, categoria, horario_apertura, horario_cierre, descripcion, capacidad_maxima, mapa_url)
-            VALUES (:nombre, :ubicacion, :categoria, :horario_apertura, :horario_cierre, :descripcion, :capacidad_maxima, :mapa_url)
+        // Validar mapa_url
+        $mapa_url = isset($data['mapa_url']) && $this->isGoogleMapsEmbedUrl($data['mapa_url']) 
+            ? $data['mapa_url'] 
+            : null;
+
+        $query = $this->db->prepare("
+            INSERT INTO restaurantes (nombre, ubicacion, categoria, horario_apertura, horario_cierre, descripcion, capacidad_maxima, mapa_url, id_usuario)
+            VALUES (:nombre, :ubicacion, :categoria, :horario_apertura, :horario_cierre, :descripcion, :capacidad_maxima, :mapa_url, :id_usuario)
         ");
-            $query->bindParam(':nombre', $data['nombre']);
-            $query->bindParam(':ubicacion', $data['ubicacion']);
-            $query->bindParam(':categoria', $data['categoria']);
-            $query->bindParam(':horario_apertura', $data['horario_apertura']);
-            $query->bindParam(':horario_cierre', $data['horario_cierre']);
-            $query->bindParam(':descripcion', $data['descripcion']);
-            $query->bindParam(':capacidad_maxima', $data['capacidad_maxima']);
-            $query->bindParam(':mapa_url', $mapa_url); // Usar el mapa_url validado
+        $query->bindParam(':nombre', $data['nombre']);
+        $query->bindParam(':ubicacion', $data['ubicacion']);
+        $query->bindParam(':categoria', $data['categoria']);
+        $query->bindParam(':horario_apertura', $data['horario_apertura']);
+        $query->bindParam(':horario_cierre', $data['horario_cierre']);
+        $query->bindParam(':descripcion', $data['descripcion']);
+        $query->bindParam(':capacidad_maxima', $data['capacidad_maxima'], PDO::PARAM_INT);
+        $query->bindParam(':mapa_url', $mapa_url);
+        $query->bindParam(':id_usuario', $data['id_usuario'], PDO::PARAM_INT);
 
-            if ($query->execute()) {
-                http_response_code(201);
-                echo json_encode(['message' => 'Restaurante creado exitosamente.']);
-            }
-        } catch (Exception $e) {
+        if ($query->execute()) {
+            $id_restaurante = $this->db->lastInsertId();
+            http_response_code(201);
+            echo json_encode([
+                'message' => 'Restaurante creado exitosamente.',
+                'id_restaurante' => $id_restaurante
+            ]);
+        }
+    } catch (PDOException $e) {
+        $errorCode = $e->getCode();
+        if ($errorCode == 23000) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Ya existe un restaurante con esos datos.']);
+        } else {
             http_response_code(500);
             echo json_encode(['error' => 'Error al crear restaurante: ' . $e->getMessage()]);
         }
     }
+}
+
+
 
     function deleteRestaurante($id)
     {

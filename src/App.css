@@ -1,5 +1,9 @@
+:root {
+    --primary-color: #7e1dd8;
+  }
+
 .slick-dots li button:before {
-    color: #1d4ed8;
+    color: #7e1dd8;
     /* Cambia el color de los puntos */
     font-size: 12px;
 }
