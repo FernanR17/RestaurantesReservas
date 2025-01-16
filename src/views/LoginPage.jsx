@@ -139,53 +139,54 @@ const LoginPage = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 flex items-center justify-center">
-            <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
-                <h1 className="text-2xl font-bold text-center text-indigo-800 mb-6">
-                    Iniciar Sesión
-                </h1>
-                <form onSubmit={handleLogin}>
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Correo Electrónico</label>
-                        <input
-                            type="email"
-                            placeholder="Ingresa tu correo electrónico"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className="w-full border rounded-lg px-4 py-2"
-                        />
-                    </div>
-
-                    <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Contraseña</label>
-                        <input
-                            type="password"
-                            placeholder="Ingresa tu contraseña"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className="w-full border rounded-lg px-4 py-2"
-                        />
-                    </div>
-
-                    <button
-                        type="submit"
-                        className="bg-indigo-600 text-white py-2 px-4 rounded-lg w-full font-bold hover:bg-indigo-700"
-                    >
-                        Iniciar Sesión
-                    </button>
-                </form>
-
-                <p className="text-center text-gray-600 mt-4">
-                    ¿No tienes una cuenta? {" "}
-                    <Link
-                        to="/register"
-                        className="text-indigo-800 font-bold hover:underline"
-                    >
-                        Regístrate
-                    </Link>
-                </p>
+<div className="flex items-center justify-center h-screen bg-gray-100">
+    <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
+        <h1 className="text-2xl font-bold text-center text-indigo-800 mb-6">
+            Iniciar Sesión
+        </h1>
+        <form onSubmit={handleLogin}>
+            <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">Correo Electrónico</label>
+                <input
+                    type="email"
+                    placeholder="Ingresa tu correo electrónico"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="w-full border rounded-lg px-4 py-2"
+                />
             </div>
-        </div>
+
+            <div className="mb-4">
+                <label className="block text-gray-700 font-bold mb-2">Contraseña</label>
+                <input
+                    type="password"
+                    placeholder="Ingresa tu contraseña"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="w-full border rounded-lg px-4 py-2"
+                />
+            </div>
+
+            <button
+                type="submit"
+                className="bg-indigo-600 text-white py-2 px-4 rounded-lg w-full font-bold hover:bg-indigo-700"
+            >
+                Iniciar Sesión
+            </button>
+        </form>
+
+        <p className="text-center text-gray-600 mt-4">
+            ¿No tienes una cuenta?{" "}
+            <Link
+                to="/register"
+                className="text-indigo-800 font-bold hover:underline"
+            >
+                Regístrate
+            </Link>
+        </p>
+    </div>
+</div>
+
     );
 };
 

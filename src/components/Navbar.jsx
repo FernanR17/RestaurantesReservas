@@ -38,9 +38,6 @@ const Navbar = () => {
                             <Link to="/dashboard/restaurante" className="px-4 py-2 text-white">
                                 Dashboard
                             </Link>
-                            <Link to="/dashboard/perfil-restaurante" className="px-4 py-2 text-white">
-                                Perfil
-                            </Link>
                             <Link to="/perfil" className="px-4 py-2 text-white">
                                 Usuario
                             </Link>

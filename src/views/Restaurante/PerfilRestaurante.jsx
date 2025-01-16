@@ -13,14 +13,10 @@ const PerfilRestaurante = () => {
         descripcion: "",
         capacidad_maxima: "",
         mapa_url: "",
-        imagen: null, // Este valor puede ser null ya que no es directamente visible en un input
     });
-    console.log("Datos enviados al servidor:", formData);
 
     const [categorias, setCategorias] = useState([]);
-    const [imagenPrevia, setImagenPrevia] = useState(null);
     const navigate = useNavigate();
-
     const apiUrl = "http://localhost/restaurante/api.php";
 
     useEffect(() => {
@@ -41,9 +37,7 @@ const PerfilRestaurante = () => {
                     descripcion: resRestaurante.data.descripcion || "",
                     capacidad_maxima: resRestaurante.data.capacidad_maxima || "",
                     mapa_url: resRestaurante.data.mapa_url || "",
-                    imagen: null, // Resetear imagen para evitar conflictos
                 });
-                setImagenPrevia(resRestaurante.data.imagen_url || null);
 
                 // Obtener categorías
                 const resCategorias = await axios.get(`${apiUrl}/categorias`);
@@ -61,29 +55,12 @@ const PerfilRestaurante = () => {
         fetchData();
     }, []);
 
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
         }));
-    };
-
-    const handleFileChange = (e) => {
-        const file = e.target.files[0];
-        setFormData((prev) => ({
-            ...prev,
-            imagen: file,
-        }));
-
-        if (file) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                setImagenPrevia(reader.result);
-            };
-            reader.readAsDataURL(file);
-        }
     };
 
     const handleSubmit = async (e) => {
@@ -93,50 +70,23 @@ const PerfilRestaurante = () => {
             const user = JSON.parse(localStorage.getItem("user"));
             if (!user || !user.id_usuario) throw new Error("Usuario no válido");
 
-            // Validar si el mapa_url tiene un iframe válido
-            if (
-                formData.mapa_url &&
-                !/^<iframe.*src="https:\/\/www\.google\.com\/maps\/embed\?pb=/.test(
-                    formData.mapa_url
-                )
-            ) {
+            const response = await axios.put(`${apiUrl}/restaurantes/${formData.id_restaurante}`, formData);
+
+            if (response.status === 200) {
                 Swal.fire({
-                    title: "Error",
-                    text: "Por favor, ingrese un código embed válido para el mapa.",
-                    icon: "error",
+                    title: "Éxito",
+                    text: response.data.message || "La información del restaurante se ha actualizado correctamente.",
+                    icon: "success",
                 });
-                return;
+                navigate("/dashboard/restaurante");
+            } else {
+                throw new Error(response.data.error || "Error desconocido en la API.");
             }
-
-            const formDataToSend = new FormData();
-            for (const key in formData) {
-                if (key === "imagen" && formData.imagen) {
-                    formDataToSend.append(key, formData.imagen);
-                } else {
-                    formDataToSend.append(key, formData[key]);
-                }
-            }
-
-            const restauranteId = formData.id_restaurante;
-
-            await axios.put(`${apiUrl}/restaurantes/${restauranteId}`, formDataToSend, {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                },
-            });
-
-            Swal.fire({
-                title: "Éxito",
-                text: "La información del restaurante se ha actualizado correctamente.",
-                icon: "success",
-            });
-
-            navigate("/dashboard/restaurante");
         } catch (error) {
             console.error("Error al guardar cambios:", error);
             Swal.fire({
                 title: "Error",
-                text: "No se pudieron guardar los cambios.",
+                text: error.response?.data?.error || "No se pudieron guardar los cambios.",
                 icon: "error",
             });
         }
@@ -243,25 +193,8 @@ const PerfilRestaurante = () => {
                         value={formData.mapa_url || ""}
                         onChange={handleInputChange}
                         className="w-full p-2 border border-gray-300 rounded"
-                        placeholder='Pega aquí el código embed del mapa'
+                        placeholder="Pega aquí el código embed del mapa"
                     />
-                </div>
-
-                <div className="col-span-2">
-                    <label className="block text-gray-700">Imagen del Restaurante</label>
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        className="w-full p-2 border border-gray-300 rounded"
-                    />
-                    {imagenPrevia && (
-                        <img
-                            src={imagenPrevia}
-                            alt="Imagen del Restaurante"
-                            className="mt-4 w-48 h-48 object-cover border border-gray-300 rounded"
-                        />
-                    )}
                 </div>
 
                 <div className="col-span-2 text-right">
