@@ -213,8 +213,8 @@ const RestaurantDetails = () => {
           isOpen={isModalOpen}
           onRequestClose={handleCloseModal}
           contentLabel="Nueva Reserva"
-          className="bg-white p-10 rounded-xl shadow-2xl w-11/12 max-w-3xl mx-auto"
-          overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
+          className="bg-white p-10 rounded-xl shadow-2xl w-11/12 max-w-3xl mx-auto relative z-50"
+          overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-40"
           ariaHideApp={false}
         >
           <h2 className="text-4xl font-bold text-indigo-800 mb-8 text-center">Nueva Reserva</h2>
@@ -280,6 +280,7 @@ const RestaurantDetails = () => {
             </div>
           </form>
         </Modal>
+
 
       </div>
     </>

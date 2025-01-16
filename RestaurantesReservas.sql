@@ -89,12 +89,12 @@ INSERT INTO usuarios (nombre, email, password, telefono, rol) VALUES
 ('Administrador', 'admin@correo.com', 'adminpass', '555-9999', 'admin');
 
 -- Insertar datos en Categorías
-INSERT INTO categorias (nombre_categoria) VALUES
-('Italiana'),
-('Mexicana'),
-('Japonesa'),
-('Internacional'),
-('Vegana');
+INSERT INTO categorias (nombre_categoria,imagen_url) VALUES
+('Italiana', 'http://localhost:3000/uploads/comida-italiana.jpg'),
+('Mexicana', 'http://localhost:3000/uploads/comida-mexicana.jpeg'),
+('Japonesa', 'http://localhost:3000/uploads/comida-japonesa.jpg'),
+('Internacional', 'http://localhost:3000/uploads/comida-italiana.jpg'),
+('Vegana', 'http://localhost:3000/uploads/comida-internacional.jpg');
 
 -- Insertar datos en Restaurantes
 INSERT INTO restaurantes (nombre, ubicacion, categoria, horario_apertura, horario_cierre, descripcion, id_usuario, id_categoria, capacidad_maxima) VALUES

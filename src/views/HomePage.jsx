@@ -1,6 +1,9 @@
-import fondo from "../components/fondo.jpeg";
+import fondo from "../components/fondo.jpg";
 import imagen1 from "../components/imagen1.jpg";
 import imagen2 from "../components/imagen2.jpg";
+import comidaitaliana from "../components/comida-italiana.jpg";
+// import comidamexicana from "../components/comidamexicana.jpeg";
+import comidajaponesa from "../components/comida-japonesa.jpg";
 
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";

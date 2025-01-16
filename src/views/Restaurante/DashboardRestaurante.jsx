@@ -39,7 +39,7 @@ const DashboardRestaurante = () => {
             const res = await axios.get(
                 `${apiUrl}/restaurantes?usuario=${user.id_usuario}`
             );
-            console.log("Datos del restaurante recibidos:", res.data); // LOG
+            // console.log("Datos del restaurante recibidos:", res.data); // LOG
             
             setRestaurantData(res.data);
         } catch (error) {
@@ -56,7 +56,7 @@ const DashboardRestaurante = () => {
     const fetchReservasPendientes = async () => {
         try {
             const user = JSON.parse(localStorage.getItem("user"));
-            console.log("Usuario cargado:", user);
+            // console.log("Usuario cargado:", user);
             if (!user || !user.id_usuario) throw new Error("Usuario no válido");
 
             const idRestaurante = restaurantData?.id_restaurante;
@@ -65,7 +65,7 @@ const DashboardRestaurante = () => {
                 return; // Evita lanzar un error y termina la ejecución
             }
 
-            console.log("Llamando al endpoint con ID restaurante:", idRestaurante);
+            // console.log("Llamando al endpoint con ID restaurante:", idRestaurante);
             const res = await axios.get(`${apiUrl}/reservas_por_restaurante`, {
                 params: {
                     id_restaurante: idRestaurante,
@@ -73,7 +73,7 @@ const DashboardRestaurante = () => {
                 },
             });
 
-            console.log("Reservas pendientes recibidas:", res.data);
+            // console.log("Reservas pendientes recibidas:", res.data);
             setReservasPendientes(res.data || []);
         } catch (error) {
             console.error("Error al obtener las reservas pendientes:", error);
@@ -190,7 +190,7 @@ const DashboardRestaurante = () => {
                         para mantener todo al día.
                     </p>
                     <Link
-                        to="/restaurante/gestion"
+                        to="/dashboard/perfil-restaurante"
                         className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-800 transition duration-300 text-center"
                     >
                         Gestionar Restaurante
@@ -207,7 +207,7 @@ const DashboardRestaurante = () => {
                         clientes y reservas.
                     </p>
                     <Link
-                        to="/restaurante/estadisticas"
+                        to="/dashboard/estadisticas-restaurante"
                         className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition duration-300 text-center"
                     >
                         Ver Estadísticas
@@ -219,7 +219,7 @@ const DashboardRestaurante = () => {
                 <h2 className="text-2xl font-bold text-gray-800 mb-4">
                     Notificaciones
                 </h2>
-                {console.log("Datos en reservasPendientes:", reservasPendientes)}{" "}
+                {/* {console.log("Datos en reservasPendientes:", reservasPendientes)}{" "} */}
                 {/* LOG */}
                 {reservasPendientes.length === 0 ? (
                     <p className="text-gray-600">No tienes notificaciones nuevas.</p>

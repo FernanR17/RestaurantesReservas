@@ -38,7 +38,7 @@ class API
         switch ($request[0]) {
             case 'restaurantes':
                 if ($method == 'GET') {
-                    if (isset($_GET['usuario'])) { // Revisa si existe el parámetro 'usuario'
+                    if (isset($_GET['usuario'])) {
                         $this->getRestauranteByUsuario($_GET['usuario']);
                     } elseif (isset($request[1])) {
                         $id = $request[1];
@@ -139,9 +139,13 @@ class API
                 break;
 
             case 'usuarios':
-                if ($method == 'GET' && isset($request[1])) {
-                    $id_usuario = $request[1];
-                    $this->getUser($id_usuario);
+                if ($method == 'GET') {
+                    if (isset($request[1])) {
+                        $id_usuario = $request[1];
+                        $this->getUser($id_usuario);
+                    } else {
+                        $this->getAllUsuarios(); // Nueva funcionalidad para obtener todos los usuarios
+                    }
                 } elseif ($method == 'PUT' && isset($request[1])) {
                     $id_usuario = $request[1];
                     $data = json_decode(file_get_contents("php://input"), true);
@@ -174,24 +178,40 @@ class API
             case 'categorias':
                 if ($method == 'GET') {
                     $this->getAllCategorias();
-                } else {
-                    http_response_code(405);
-                    echo json_encode(['error' => 'Método no permitido']);
-                }
-                break;
-
-            case 'restaurantes_imagen':
-                if ($method == 'POST' && isset($request[1])) {
-                    $this->uploadRestauranteImagen($request[1]);
-                } elseif ($method == 'PUT' && isset($request[1])) {
+                } elseif ($method == 'POST') {
                     $data = json_decode(file_get_contents("php://input"), true);
-                    $this->updateRestaurante($request[1], $data);
+                    $this->createCategoria($data);
+                } elseif ($method == 'PUT' && isset($request[1])) {
+                    $id_categoria = $request[1];
+                    $data = json_decode(file_get_contents("php://input"), true);
+                    $this->updateCategoria($id_categoria, $data);
+                } elseif ($method == 'DELETE' && isset($request[1])) {
+                    $id_categoria = $request[1];
+                    $this->deleteCategoria($id_categoria);
                 } else {
                     http_response_code(405);
                     echo json_encode(['error' => 'Método no permitido']);
                 }
                 break;
 
+            case 'estadisticas-reservas':
+                if ($method == 'GET' && isset($_GET['id_restaurante'])) {
+                    $id_restaurante = $_GET['id_restaurante'];
+                    $this->getReservasConClientePorRestaurante($id_restaurante);
+                } else {
+                    http_response_code(405);
+                    echo json_encode(['error' => 'Método no permitido o parámetros faltantes']);
+                }
+                break;
+
+            case 'reservas_con_clientes':
+                if ($method == 'GET' && isset($_GET['id_restaurante'])) {
+                    $this->getReservasConClientePorRestaurante($_GET['id_restaurante']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'Parámetro id_restaurante requerido.']);
+                }
+                break;
 
 
             default:
@@ -251,6 +271,14 @@ class API
             http_response_code(500);
             echo json_encode(['error' => 'Error al iniciar sesión: ' . $e->getMessage()]);
         }
+    }
+
+    function getAllUsuarios()
+    {
+        $query = $this->db->prepare("SELECT id_usuario, nombre, email, telefono, rol FROM usuarios");
+        $query->execute();
+        $usuarios = $query->fetchAll(PDO::FETCH_ASSOC);
+        echo json_encode($usuarios);
     }
 
     function getUser($id_usuario)
@@ -550,40 +578,24 @@ class API
 
     function updateRestaurante($id, $data)
     {
-        error_log("Datos recibidos para actualización: " . print_r($data, true));
-
         try {
-            $mapa_url = isset($data['mapa_url']) && $this->isGoogleMapsEmbedUrl($data['mapa_url'])
-                ? $data['mapa_url']
-                : null;
-
-            $imagen_url = null;
-
-            // Si se envía una imagen, manejar la carga
-            if (isset($_FILES['imagen']) && $_FILES['imagen']['error'] === UPLOAD_ERR_OK) {
-                $imagen_url = $this->handleImageUpload($_FILES['imagen'], "public/uploads/restaurantes/");
-            }
-
             if (empty($data['nombre']) || empty($data['ubicacion']) || empty($data['categoria'])) {
                 throw new Exception("Faltan campos obligatorios.");
             }
 
-            // Preparar consulta
             $query = $this->db->prepare("
-                UPDATE restaurantes
-                SET nombre = :nombre,
-                    ubicacion = :ubicacion,
-                    categoria = :categoria,
-                    horario_apertura = :horario_apertura,
-                    horario_cierre = :horario_cierre,
-                    descripcion = :descripcion,
-                    capacidad_maxima = :capacidad_maxima,
-                    mapa_url = :mapa_url,
-                    imagen_url = COALESCE(:imagen_url, imagen_url)
-                WHERE id_restaurante = :id
-            ");
+            UPDATE restaurantes
+            SET nombre = :nombre,
+                ubicacion = :ubicacion,
+                categoria = :categoria,
+                horario_apertura = :horario_apertura,
+                horario_cierre = :horario_cierre,
+                descripcion = :descripcion,
+                capacidad_maxima = :capacidad_maxima,
+                mapa_url = :mapa_url
+            WHERE id_restaurante = :id
+        ");
 
-            // Enlazar parámetros
             $query->bindParam(':id', $id, PDO::PARAM_INT);
             $query->bindParam(':nombre', $data['nombre']);
             $query->bindParam(':ubicacion', $data['ubicacion']);
@@ -592,8 +604,7 @@ class API
             $query->bindParam(':horario_cierre', $data['horario_cierre']);
             $query->bindParam(':descripcion', $data['descripcion']);
             $query->bindParam(':capacidad_maxima', $data['capacidad_maxima']);
-            $query->bindParam(':mapa_url', $mapa_url);
-            $query->bindParam(':imagen_url', $imagen_url);
+            $query->bindParam(':mapa_url', $data['mapa_url']);
 
             if ($query->execute()) {
                 http_response_code(200);
@@ -606,6 +617,36 @@ class API
             echo json_encode(['error' => $e->getMessage()]);
         }
     }
+
+    // Función para obtener las reservas con información del cliente
+    function getReservasConClientePorRestaurante($id_restaurante)
+    {
+        try {
+            $query = "
+                SELECT r.id_reserva, r.fecha_reserva, r.hora_reserva, r.numero_personas, r.estado, r.comentarios, u.nombre AS cliente
+                FROM reservas r
+                INNER JOIN usuarios u ON r.id_usuario = u.id_usuario
+                WHERE r.id_restaurante = :id_restaurante
+                ORDER BY r.fecha_reserva ASC, r.hora_reserva ASC
+            ";
+            $stmt = $this->db->prepare($query);
+            $stmt->bindParam(':id_restaurante', $id_restaurante, PDO::PARAM_INT);
+            $stmt->execute();
+
+            $reservas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if ($reservas) {
+                echo json_encode($reservas);
+            } else {
+                http_response_code(404);
+                echo json_encode(['error' => 'No se encontraron reservas.']);
+            }
+        } catch (Exception $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al obtener reservas: ' . $e->getMessage()]);
+        }
+    }
+
 
 
     // ----------------------------------------------------
@@ -768,13 +809,62 @@ class API
     }
 
     // ----------------------------------------------------
-
     function getAllCategorias()
     {
-        $query = $this->db->prepare("SELECT id_categoria, nombre_categoria FROM categorias");
-        $query->execute();
-        $categorias = $query->fetchAll(PDO::FETCH_ASSOC);
-        echo json_encode($categorias);
+        try {
+            $query = $this->db->prepare("SELECT id_categoria, nombre_categoria, imagen_url FROM categorias");
+            $query->execute();
+            $categorias = $query->fetchAll(PDO::FETCH_ASSOC);
+            echo json_encode($categorias);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al obtener categorías: ' . $e->getMessage()]);
+        }
+    }
+
+    function createCategoria($data)
+    {
+        try {
+            $query = $this->db->prepare("INSERT INTO categorias (nombre_categoria, imagen_url) VALUES (:nombre_categoria, :imagen_url)");
+            $query->bindParam(':nombre_categoria', $data['nombre_categoria']);
+            $query->bindParam(':imagen_url', $data['imagen_url']);
+            $query->execute();
+            http_response_code(201);
+            echo json_encode(['message' => 'Categoría creada exitosamente']);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al crear categoría: ' . $e->getMessage()]);
+        }
+    }
+
+    function updateCategoria($id_categoria, $data)
+    {
+        try {
+            $query = $this->db->prepare("UPDATE categorias SET nombre_categoria = :nombre_categoria, imagen_url = :imagen_url WHERE id_categoria = :id_categoria");
+            $query->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
+            $query->bindParam(':nombre_categoria', $data['nombre_categoria']);
+            $query->bindParam(':imagen_url', $data['imagen_url']);
+            $query->execute();
+            http_response_code(200);
+            echo json_encode(['message' => 'Categoría actualizada exitosamente']);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al actualizar categoría: ' . $e->getMessage()]);
+        }
+    }
+
+    function deleteCategoria($id_categoria)
+    {
+        try {
+            $query = $this->db->prepare("DELETE FROM categorias WHERE id_categoria = :id_categoria");
+            $query->bindParam(':id_categoria', $id_categoria, PDO::PARAM_INT);
+            $query->execute();
+            http_response_code(200);
+            echo json_encode(['message' => 'Categoría eliminada exitosamente']);
+        } catch (PDOException $e) {
+            http_response_code(500);
+            echo json_encode(['error' => 'Error al eliminar categoría: ' . $e->getMessage()]);
+        }
     }
 }
 $api = new API();

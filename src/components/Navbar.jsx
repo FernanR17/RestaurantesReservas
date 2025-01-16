@@ -17,9 +17,11 @@ const Navbar = () => {
                     <Link to="/">Restaurantes Reservas</Link>
                 </h1>
                 <div className="flex items-center">
-                    <Link to="/catalogo" className="px-4 py-2 text-white">
-                        Catálogo
-                    </Link>
+                    {user && user.rol === "" && (
+                        <Link to="/catalogo" className="px-4 py-2 text-white">
+                            Catálogo
+                        </Link>
+                    )}
                     {user && user.rol === "cliente" && (
                         <>
                             <Link to="/reservas" className="px-4 py-2 text-white">
@@ -34,9 +36,6 @@ const Navbar = () => {
                         <>
                             <Link to="/dashboard/restaurante" className="px-4 py-2 text-white">
                                 Dashboard
-                            </Link>
-                            <Link to="/dashboard/perfil-restaurante" className="px-4 py-2 text-white">
-                                Perfil
                             </Link>
                             <Link to="/perfil" className="px-4 py-2 text-white">
                                 Usuario
