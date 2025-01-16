@@ -81,8 +81,9 @@ const RegistrarRestaurante = () => {
                 text: "Restaurante registrado correctamente.",
                 icon: "success",
             });
-            navigate("/catalogo");
-        }
+            // navigate("/catalogo");
+              navigate("/admin/restaurantes");}
+
     } catch (error) {
         console.error("Error al registrar restaurante:", error);
         Swal.fire({

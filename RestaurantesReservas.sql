@@ -69,24 +69,24 @@ CREATE TABLE IF NOT EXISTS opiniones (
 ALTER TABLE restaurantes ADD COLUMN IF NOT EXISTS id_categoria INT;
 ALTER TABLE restaurantes ADD FOREIGN KEY (id_categoria) REFERENCES categorias(id_categoria);
 
--- Insertar datos en Usuarios
+-- Insertar datos en Usuarios 123456 = $2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS
 INSERT INTO usuarios (nombre, email, password, telefono, rol) VALUES
-('Usuario 1', 'usuario1@correo.com', 'password1', '555-1234', 'cliente'),
-('Usuario 2', 'usuario2@correo.com', 'password2', '555-5678', 'cliente'),
-('Usuario 3', 'usuario3@correo.com', 'password3', '555-9101', 'cliente'),
-('Usuario 4', 'usuario4@correo.com', 'password4', '555-1123', 'cliente'),
-('Usuario 5', 'usuario5@correo.com', 'password5', '555-1415', 'cliente'),
-('Usuario 6', 'usuario6@correo.com', 'password6', '555-1617', 'cliente'),
-('Usuario 7', 'usuario7@correo.com', 'password7', '555-1819', 'cliente'),
-('Usuario 8', 'usuario8@correo.com', 'password8', '555-2021', 'cliente'),
-('Usuario 9', 'usuario9@correo.com', 'password9', '555-2223', 'cliente'),
-('Usuario 10', 'usuario10@correo.com', 'password10', '555-2425', 'cliente'),
-('Restaurante Owner 1', 'restaurante1@correo.com', 'password1', '555-2627', 'restaurante'),
-('Restaurante Owner 2', 'restaurante2@correo.com', 'password2', '555-2829', 'restaurante'),
-('Restaurante Owner 3', 'restaurante3@correo.com', 'password3', '555-3031', 'restaurante'),
-('Restaurante Owner 4', 'restaurante4@correo.com', 'password4', '555-3233', 'restaurante'),
-('Restaurante Owner 5', 'restaurante5@correo.com', 'password5', '555-3435', 'restaurante'),
-('Administrador', 'admin@correo.com', 'adminpass', '555-9999', 'admin');
+('Usuario 1', 'usuario1@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-1234', 'cliente'),
+('Usuario 2', 'usuario2@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-5678', 'cliente'),
+('Usuario 3', 'usuario3@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-9101', 'cliente'),
+('Usuario 4', 'usuario4@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-1123', 'cliente'),
+('Usuario 5', 'usuario5@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-1415', 'cliente'),
+('Usuario 6', 'usuario6@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-1617', 'cliente'),
+('Usuario 7', 'usuario7@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-1819', 'cliente'),
+('Usuario 8', 'usuario8@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-2021', 'cliente'),
+('Usuario 9', 'usuario9@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-2223', 'cliente'),
+('Usuario 10', 'usuario10@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-2425', 'cliente'),
+('Restaurante Owner 1', 'restaurante1@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-2627', 'restaurante'),
+('Restaurante Owner 2', 'restaurante2@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-2829', 'restaurante'),
+('Restaurante Owner 3', 'restaurante3@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-3031', 'restaurante'),
+('Restaurante Owner 4', 'restaurante4@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-3233', 'restaurante'),
+('Restaurante Owner 5', 'restaurante5@correo.com', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', '555-3435', 'restaurante'),
+('Administrador', 'admin@correo.com', 'adminpass', '$2y$10$06DI8hTZxdE4Pi0LpF6MZOubA1wO6M5O7xFUaETI5Q5TCzjxpqAfS', 'admin');
 
 -- Insertar datos en Categorías
 INSERT INTO categorias (nombre_categoria,imagen_url) VALUES
@@ -105,7 +105,7 @@ INSERT INTO restaurantes (nombre, ubicacion, categoria, horario_apertura, horari
 ('Restaurante 5', 'Ubicación 5', 'italiano', '10:00:00', '22:00:00', 'Descripción del Restaurante 5', 15, 1, 90);
 
 -- Insertar datos en Reservas
-INSERT INTO reservas (id_usuario, id_restaurante, fecha_creacion, fecha_reserva, hora_reserva, numero_personas, estado, comentarios) VALUES
+INSERT INTO reservas (id_usuario, id_restaurante, fecha_reserva, hora_reserva, numero_personas, estado, comentarios) VALUES
 (1, 1, '2025-01-08', '12:00:00', 4, 'pendiente', 'Reserva de prueba 1'),
 (2, 2, '2025-01-09', '14:00:00', 2, 'confirmada', 'Reserva de prueba 2');
 

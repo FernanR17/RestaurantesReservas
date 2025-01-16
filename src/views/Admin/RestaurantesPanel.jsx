@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 const RestaurantesPanel = () => {
   const [restaurantes, setRestaurantes] = useState([]);
@@ -145,12 +146,17 @@ const RestaurantesPanel = () => {
   return (
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4">Gestión de Restaurantes</h1>
-      <button
+      {/* <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={() => openModal()}
       >
         Crear Nuevo Restaurante
-      </button>
+      </button> */}
+      <Link to={"/nuevo-restaurante"}>
+                     <button className="flex ml-auto select-none rounded-lg bg-indigo-800 uppercase py-4 px-8 text-center font-sans text-sm font-bold text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20">
+                       Registrar Restaurante
+                     </button>
+                   </Link>
 
       <table className="table-auto w-full mt-4 border">
         <thead>
