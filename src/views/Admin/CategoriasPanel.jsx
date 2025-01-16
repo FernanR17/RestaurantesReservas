@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import axios from "axios";
 import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import { FaBeer } from 'react-icons/fa';
+
 
 const CategoriasPanel = () => {
     const [categorias, setCategorias] = useState([]);

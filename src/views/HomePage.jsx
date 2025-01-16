@@ -19,8 +19,6 @@ const imagenesCategorias = {
   // Puedes agregar más categorías y sus respectivas imágenes
 };
 
-
-
 const HomePage = () => {
   const [categorias, setCategorias] = useState([]);
   const [opiniones, setOpiniones] = useState([]);

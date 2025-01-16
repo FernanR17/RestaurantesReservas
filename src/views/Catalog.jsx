@@ -32,13 +32,13 @@ const Catalog = () => {
     <section className="text-gray-600 body-font">
       <div className="container px-5 py-24 mx-auto">
         {/* Botón de registro */}
-        {/* <div className="mb-8">
+        <div className="mb-8">
           <Link to={"/nuevo-restaurante"}>
             <button className="flex ml-auto select-none rounded-lg bg-indigo-800 uppercase py-4 px-8 text-center font-sans text-sm font-bold text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20">
               Registrar Restaurante
             </button>
           </Link>
-        </div> */}
+        </div>
 
         {/* Tarjetas de restaurantes */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
