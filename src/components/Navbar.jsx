@@ -43,6 +43,16 @@ const Navbar = () => {
                             </Link>
                         </>
                     )}
+                    {user && user.rol === "admin" && (
+                        <>
+                            <Link to="/admin" className="px-4 py-2 text-white">
+                                Admin
+                            </Link>
+                            <Link to="/perfil" className="px-4 py-2 text-white">
+                                Usuario
+                            </Link>
+                        </>
+                    )}
                     {user ? (
                         <button
                             onClick={handleLogout}
