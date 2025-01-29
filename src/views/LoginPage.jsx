@@ -19,7 +19,7 @@ const LoginPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "Todos los campos son obligatorios.",
+                title: "All fields must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -32,7 +32,7 @@ const LoginPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "Introduce un correo electrónico válido.",
+                title: "Introduce a valid e-mail.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -44,7 +44,7 @@ const LoginPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El campo 'Contraseña' es obligatorio.",
+                title: "Field 'Password' must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -54,8 +54,8 @@ const LoginPage = () => {
 
         // Mostrar alerta de carga
         Swal.fire({
-            title: "Procesando...",
-            html: "Verificando credenciales.",
+            title: "Processing...",
+            html: "Checking credentials.",
             timer: 1500,
             showClass: {
                 popup: `
@@ -88,8 +88,8 @@ const LoginPage = () => {
                     login(userData);
 
                     Swal.fire({
-                        title: "Inicio de sesión exitoso",
-                        text: `Bienvenido, ${user.nombre}`,
+                        title: "Login Successful",
+                        text: `Welcome, ${user.nombre}`,
                         icon: "success",
                         timer: 2500,
                         showConfirmButton: false,
@@ -106,8 +106,8 @@ const LoginPage = () => {
                     });
                 } else {
                     Swal.fire({
-                        title: "Error de inicio de sesión",
-                        text: "No se pudo autenticar al usuario.",
+                        title: "Error on login",
+                        text: "Unable to authenticate user.",
                         icon: "error",
                         timer: 3000,
                         showConfirmButton: false,
@@ -117,8 +117,8 @@ const LoginPage = () => {
 
                 if (error.response?.status === 401) {
                     Swal.fire({
-                        title: "Error de credenciales",
-                        text: "Correo o contraseña incorrectos.",
+                        title: "Credentials",
+                        text: "Wrong email and/or password.",
                         icon: "error",
                         timer: 3000,
                         showConfirmButton: false,
@@ -126,7 +126,7 @@ const LoginPage = () => {
                 } else {
                     Swal.fire({
                         title: "Error",
-                        text: "Algo salió mal. Inténtalo nuevamente.",
+                        text: "Something was wrong, please try again.",
                         icon: "error",
                         timer: 3000,
                         showConfirmButton: false,
@@ -142,14 +142,14 @@ const LoginPage = () => {
 <div className="flex items-center justify-center h-screen bg-gray-100">
     <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
         <h1 className="text-2xl font-bold text-center text-indigo-800 mb-6">
-            Iniciar Sesión
+            Login
         </h1>
         <form onSubmit={handleLogin}>
             <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Correo Electrónico</label>
+                <label className="block text-gray-700 font-bold mb-2">E-mail</label>
                 <input
                     type="email"
-                    placeholder="Ingresa tu correo electrónico"
+                    placeholder="Enter your email address"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2"
@@ -157,10 +157,10 @@ const LoginPage = () => {
             </div>
 
             <div className="mb-4">
-                <label className="block text-gray-700 font-bold mb-2">Contraseña</label>
+                <label className="block text-gray-700 font-bold mb-2">Password</label>
                 <input
                     type="password"
-                    placeholder="Ingresa tu contraseña"
+                    placeholder="Enter your password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     className="w-full border rounded-lg px-4 py-2"
@@ -171,17 +171,17 @@ const LoginPage = () => {
                 type="submit"
                 className="bg-indigo-600 text-white py-2 px-4 rounded-lg w-full font-bold hover:bg-indigo-700"
             >
-                Iniciar Sesión
+                Login
             </button>
         </form>
 
         <p className="text-center text-gray-600 mt-4">
-            ¿No tienes una cuenta?{" "}
+            Don't have an account?{" "}
             <Link
                 to="/register"
                 className="text-indigo-800 font-bold hover:underline"
             >
-                Regístrate
+                Register
             </Link>
         </p>
     </div>

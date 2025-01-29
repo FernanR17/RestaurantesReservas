@@ -18,7 +18,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "Todos los campos son obligatorios.",
+                title: "All fields must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -30,7 +30,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El campo 'Nombre' es obligatorio.",
+                title: "Field 'Name' must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -42,7 +42,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El campo 'Correo Electrónico' es obligatorio.",
+                title: "Field 'email' must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -55,7 +55,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "Por favor, introduce un correo electrónico válido.",
+                title: "Please use a valid email.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -67,7 +67,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El campo 'Teléfono' es obligatorio.",
+                title: "Field 'Phone number' must be filled.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -80,7 +80,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El teléfono debe contener exactamente 8 dígitos numéricos.",
+                title: "The phone number must have exactly 8 digits.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -92,7 +92,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "El campo 'Contraseña' es obligatorio.",
+                title: "Field 'Password' must not be empty.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -104,7 +104,7 @@ const RegisterPage = () => {
             Swal.fire({
                 position: "top-end",
                 icon: "error",
-                title: "La contraseña debe tener al menos 6 caracteres.",
+                title: "Password should have at least 6 digits.",
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,
@@ -113,8 +113,8 @@ const RegisterPage = () => {
         }
 
         Swal.fire({
-            title: "Procesando registro...",
-            html: "Espere un momento.",
+            title: "Processing registry...",
+            html: "Wait a moment.",
             timer: 1500, // La duración de esta alerta
             timerProgressBar: true,
             showClass: {
@@ -152,8 +152,8 @@ const RegisterPage = () => {
 
                 // Mostrar alerta de éxito tras el registro
                 Swal.fire({
-                    title: "Registro Exitoso",
-                    text: "Tu cuenta ha sido creada exitosamente.",
+                    title: "Register successful",
+                    text: "Your account has been created successfully.",
                     icon: "success",
                     timer: 2000,
                     showClass: {
@@ -180,14 +180,14 @@ const RegisterPage = () => {
                 if (error.response?.status === 400 && error.response?.data?.error) {
                     Swal.fire({
                         icon: "warning",
-                        title: "Correo ya registrado",
+                        title: "Email already registered",
                         text: error.response.data.error,
                         showConfirmButton: true,
                     });
                 } else {
                     Swal.fire({
                         icon: "error",
-                        title: "Algo salió mal. Inténtalo de nuevo.",
+                        title: "Something went wrong, please try again later.",
                         text: error.response?.data?.error || "",
                         showConfirmButton: true,
                     });
@@ -202,54 +202,54 @@ const RegisterPage = () => {
         <div className="h-screen bg-gray-100 flex items-center justify-center">
             <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-8">
                 <h1 className="text-2xl font-bold text-center text-indigo-800 mb-6">
-                    Crear Cuenta
+                    Create Account
                 </h1>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Nombre</label>
+                        <label className="block text-gray-700 font-bold mb-2">Name</label>
                         <input
                             type="text"
                             value={nombre}
                             onChange={(e) => setNombre(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2"
-                            placeholder="Ingrese su nombre"
+                            placeholder="Write your name"
                         />
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Correo Electrónico
+                            Email
                         </label>
                         <input
                             type="email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2"
-                            placeholder="Ingrese su correo electrónico"
+                            placeholder="Write your email"
                         />
                     </div>
 
                     <div className="mb-4">
-                        <label className="block text-gray-700 font-bold mb-2">Teléfono</label>
+                        <label className="block text-gray-700 font-bold mb-2">Phone number</label>
                         <input
                             type="text"
                             value={telefono}
                             onChange={(e) => setTelefono(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2"
-                            placeholder="Ingrese su número de teléfono"
+                            placeholder="Write your phone number"
                         />
                     </div>
 
                     <div className="mb-4">
                         <label className="block text-gray-700 font-bold mb-2">
-                            Contraseña
+                            Password
                         </label>
                         <input
                             type="password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             className="w-full border rounded-lg px-4 py-2"
-                            placeholder="Cree una contraseña"
+                            placeholder="Create a password"
                         />
                     </div>
 
@@ -257,17 +257,17 @@ const RegisterPage = () => {
                         type="submit"
                         className="bg-indigo-600 text-white py-2 px-4 rounded-lg"
                     >
-                        Registrarse
+                        Register
                     </button>
                 </form>
 
                 <p className="text-center text-gray-600 mt-4">
-                    ¿Ya tienes una cuenta?{" "}
+                    Already have an account?{" "}
                     <a
                         href="/login"
                         className="text-indigo-800 font-bold hover:underline"
                     >
-                        Inicia Sesión
+                        Login
                     </a>
                 </p>
             </div>

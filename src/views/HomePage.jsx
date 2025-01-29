@@ -152,7 +152,7 @@ const HomePage = () => {
         setCategorias(data.categorias || []);
         setOpiniones(data.opiniones || []);
       } catch (error) {
-        console.error("Error al cargar los datos del inicio:", error);
+        console.error("Error loading landing page:", error);
       }
     };
 
@@ -179,7 +179,7 @@ const HomePage = () => {
 
         {/* Imágenes de Restaurantes */}
         <section className="container mx-auto px-4 py-8">
-          <h2 className="text-2xl font-bold mb-4">Categorías Destacadas</h2>
+          <h2 className="text-2xl font-bold mb-4">Featured categories</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {categorias.slice(0, 3).map((categoria) => (
               <div
@@ -205,14 +205,14 @@ const HomePage = () => {
         <div className="text-center py-4">
           <Link to="/catalogo">
             <button className="bg-blue-700 text-white py-2 px-4 rounded-lg font-bold text-lg hover:bg-blue-800 transition duration-300">
-              Ver Catálogo de Restaurantes
+              View Restaurants' Catalog
             </button>
           </Link>
         </div>
 
         {/* Opiniones */}
         <section className="container mx-auto px-4 py-8">
-          <h2 className="text-2xl font-bold mb-4">Opiniones de Clientes</h2>
+          <h2 className="text-2xl font-bold mb-4">Customer Opinions</h2>
           <Slider {...settingsOpiniones} className="custom-slider">
             {opiniones.map((opinion) => (
               <div
@@ -224,10 +224,10 @@ const HomePage = () => {
                 </h3>
                 <p className="text-gray-600 italic">"{opinion.comentario}"</p>
                 <p className="text-sm text-gray-500">
-                  Calificación: {opinion.calificacion} estrellas
+                  Qualification: {opinion.calificacion} stars
                 </p>
                 <p className="text-sm text-gray-500">
-                  Restaurante: {opinion.restaurante}
+                  Restaurant: {opinion.restaurante}
                 </p>
               </div>
             ))}

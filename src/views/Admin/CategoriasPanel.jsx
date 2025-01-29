@@ -20,7 +20,7 @@ const CategoriasPanel = () => {
                 console.error("Error al cargar las categorías:", error);
                 Swal.fire({
                     title: "Error",
-                    text: "No se pudieron cargar las categorías.",
+                    text: "Couldn't load all categories.",
                     icon: "error",
                 });
             }
@@ -36,28 +36,28 @@ const CategoriasPanel = () => {
     const handleDelete = async (idCategoria) => {
         try {
             const confirm = await Swal.fire({
-                title: "¿Estás seguro?",
-                text: "Esta acción eliminará la categoría.",
+                title: "Are you sure?",
+                text: "This action will delete this category.",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonText: "Sí, eliminar",
-                cancelButtonText: "No, cancelar",
+                confirmButtonText: "Yes, delete",
+                cancelButtonText: "No, cancel",
             });
 
             if (confirm.isConfirmed) {
                 await axios.delete(`${apiUrl}/categorias/${idCategoria}`);
                 setCategorias((prev) => prev.filter((cat) => cat.id_categoria !== idCategoria));
                 Swal.fire({
-                    title: "Eliminada",
-                    text: "La categoría ha sido eliminada.",
+                    title: "Deleted",
+                    text: "Category has been deleted successfully.",
                     icon: "success",
                 });
             }
         } catch (error) {
-            console.error("Error al eliminar la categoría:", error);
+            console.error("Error deleting the category:", error);
             Swal.fire({
                 title: "Error",
-                text: "No se pudo eliminar la categoría.",
+                text: "It wasn't possible to delete this category.",
                 icon: "error",
             });
         }
@@ -80,8 +80,8 @@ const CategoriasPanel = () => {
                     )
                 );
                 Swal.fire({
-                    title: "Actualizada",
-                    text: "La categoría ha sido actualizada.",
+                    title: "Updated",
+                    text: "Category has been updated successfully.",
                     icon: "success",
                 });
             } else {
@@ -89,17 +89,17 @@ const CategoriasPanel = () => {
                 const res = await axios.post(`${apiUrl}/categorias`, modalData);
                 setCategorias((prev) => [...prev, res.data]);
                 Swal.fire({
-                    title: "Creada",
-                    text: "La categoría ha sido creada.",
+                    title: "Created",
+                    text: "Category has been created successfully.",
                     icon: "success",
                 });
             }
             closeModal();
         } catch (error) {
-            console.error("Error al guardar la categoría:", error);
+            console.error("Error saving category:", error);
             Swal.fire({
                 title: "Error",
-                text: "No se pudo guardar la categoría.",
+                text: "It wasn't possible to save the category.",
                 icon: "error",
             });
         }
@@ -109,12 +109,12 @@ const CategoriasPanel = () => {
         <div className="container mx-auto px-4 py-8">
             <div className="bg-white shadow-md rounded-lg p-6">
                 <div className="flex justify-between items-center mb-4">
-                    <h1 className="text-3xl font-bold text-indigo-800">Gestión de Categorías</h1>
+                    <h1 className="text-3xl font-bold text-indigo-800">Category Management</h1>
                     <button
                         className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700"
                         onClick={() => setIsModalOpen(true)}
                     >
-                        <FaPlus className="mr-2" /> Añadir Categoría
+                        <FaPlus className="mr-2" /> Add Category
                     </button>
                 </div>
 
@@ -122,8 +122,8 @@ const CategoriasPanel = () => {
                     <thead className="bg-gray-100">
                         <tr>
                             <th className="px-4 py-2 border">ID</th>
-                            <th className="px-4 py-2 border">Nombre</th>
-                            <th className="px-4 py-2 border">Acciones</th>
+                            <th className="px-4 py-2 border">Name</th>
+                            <th className="px-4 py-2 border">Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -136,13 +136,13 @@ const CategoriasPanel = () => {
                                         onClick={() => handleEdit(categoria)}
                                         className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 flex items-center"
                                     >
-                                        <FaEdit className="mr-1" /> Editar
+                                        <FaEdit className="mr-1" /> Edit
                                     </button>
                                     <button
                                         onClick={() => handleDelete(categoria.id_categoria)}
                                         className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 flex items-center"
                                     >
-                                        <FaTrash className="mr-1" /> Eliminar
+                                        <FaTrash className="mr-1" /> Delete
                                     </button>
                                 </td>
                             </tr>
@@ -159,7 +159,7 @@ const CategoriasPanel = () => {
                         </h2>
                         <form onSubmit={handleSubmit}>
                             <div className="mb-4">
-                                <label className="block text-gray-700">Nombre de la Categoría</label>
+                                <label className="block text-gray-700">Category Name:</label>
                                 <input
                                     type="text"
                                     value={modalData.nombre_categoria || ""}
@@ -176,13 +176,13 @@ const CategoriasPanel = () => {
                                     onClick={closeModal}
                                     className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-700 mr-2"
                                 >
-                                    Cancelar
+                                    Cancel
                                 </button>
                                 <button
                                     type="submit"
                                     className="bg-indigo-600 text-white px-3 py-1 rounded hover:bg-indigo-700"
                                 >
-                                    Guardar
+                                    Save
                                 </button>
                             </div>
                         </form>

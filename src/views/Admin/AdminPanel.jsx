@@ -13,7 +13,7 @@ const AdminPanel = () => {
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "Debes iniciar sesión para acceder a esta página.",
+                text: "You have to log in to view this page.",
             });
             return;
         }
@@ -24,61 +24,58 @@ const AdminPanel = () => {
     return (
         <div className="container mx-auto px-4 py-8">
             <h1 className="text-4xl font-bold text-indigo-800 mb-6">
-                Dashboard de {user?.nombre || "Usuario"}
+                {user?.nombre || "Usuario"}'s Dashboard
             </h1>
 
             <p className="text-gray-600 mb-6">
-                Bienvenido a su panel de control.
+                Welcome to your Control Panel.
             </p>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 {/* Tarjeta de información general */}
                 <div className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                        Información de las categorias
+                        Categories Info
                     </h2>
                     <p className="text-gray-600 mb-4">
-                        Revisa el desempeño de tu restaurante y analiza los datos de tus
-                        clientes y reservas.
+                        Check the performance of your restaurant and analize the data from your clients and reservations.
                     </p>
                     <Link
                         to="/admin/categorias"
                         className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition duration-300 text-center"
                     >
-                        Ver Categorias
+                        View Categories
                     </Link>
                 </div>
 
                 {/* Tarjeta de gestión */}
                 <div className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                        Gestión de los Restaurante
+                        Restaurant Management
                     </h2>
                     <p className="text-gray-600 mb-4">
-                        Administra tus datos y actualiza la información de tu restaurante
-                        para mantener todo al día.
+                        Manage your data and update your restaurant's information to keep all up to date.
                     </p>
                     <Link
                         to="/admin/restaurantes"
                         className="bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-800 transition duration-300 text-center"
                     >
-                        Gestionar Restaurantes
+                        Manage Restaurants
                     </Link>
                 </div>
 
                 <div className="bg-white shadow-md rounded-lg p-6 flex flex-col justify-between">
                     <h2 className="text-2xl font-bold text-gray-800 mb-4">
-                        Usuarios
+                        Users
                     </h2>
                     <p className="text-gray-600 mb-4">
-                        Revisa el desempeño de tu restaurante y analiza los datos de tus
-                        clientes y reservas.
+                    Check the performance of your restaurant and analize the data from your clients and reservations.
                     </p>
                     <Link
                         to="/admin/usuarios"
                         className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-800 transition duration-300 text-center"
                     >
-                        Ver Usuarios
+                        View Users
                     </Link>
                 </div>
             </div>

@@ -22,11 +22,11 @@ const ReservationsPage = () => {
             });
             setReservations(res.data || []);
         } catch (error) {
-            console.error("Error al obtener las reservas:", error);
+            console.error("Error getting reservations:", error);
             Swal.fire({
                 icon: "error",
                 title: "Error",
-                text: "No se pudieron cargar tus reservas.",
+                text: "Error while loading your reservations.",
             });
         } finally {
             setLoading(false);
@@ -45,13 +45,13 @@ const ReservationsPage = () => {
 
     const cancelReservation = async (id) => {
         Swal.fire({
-            title: "¿Cancelar reserva?",
-            text: "Esta acción no puede deshacerse.",
+            title: "Cancel Reservation?",
+            text: "This action can't be undone.",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#d33",
             cancelButtonColor: "#3085d6",
-            confirmButtonText: "Sí, cancelar",
+            confirmButtonText: "Yes, cancel",
         }).then(async (result) => {
             if (result.isConfirmed) {
                 try {
@@ -72,15 +72,15 @@ const ReservationsPage = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <h1 className="text-3xl font-bold text-indigo-800 mb-6">Mis Reservas</h1>
+            <h1 className="text-3xl font-bold text-indigo-800 mb-6">My Reservations</h1>
             <Link to="/catalogo" className="text-blue-600 hover:underline mb-4 block">
-                Ir al Catálogo
+                View Catalog
             </Link>
 
             {loading ? (
-                <p className="text-center">Cargando reservas...</p>
+                <p className="text-center">Loading reservations...</p>
             ) : reservations.length === 0 ? (
-                <p className="text-center text-gray-600">No tienes reservas registradas.</p>
+                <p className="text-center text-gray-600">You don't have any reservations yet.</p>
             ) : (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {reservations.map((reserva) => (
@@ -97,13 +97,13 @@ const ReservationsPage = () => {
                                 {reserva.nombre_restaurante}
                             </h2>
                             <p className="text-gray-600">
-                                Fecha: <span className="font-medium">{reserva.fecha_reserva}</span>
+                                Date: <span className="font-medium">{reserva.fecha_reserva}</span>
                             </p>
                             <p className="text-gray-600">
-                                Hora: <span className="font-medium">{reserva.hora_reserva}</span>
+                                Time: <span className="font-medium">{reserva.hora_reserva}</span>
                             </p>
                             <p className="text-gray-600">
-                                Personas: <span className="font-medium">{reserva.numero_personas}</span>
+                                People: <span className="font-medium">{reserva.numero_personas}</span>
                             </p>
                             <p
                                 className={`text-sm font-bold ${reserva.estado === "pendiente"
@@ -113,20 +113,20 @@ const ReservationsPage = () => {
                                         : "text-red-500"
                                     }`}
                             >
-                                Estado: {reserva.estado}
+                                Status: {reserva.estado}
                             </p>
                             <div className="mt-4 flex justify-between">
                                 <button
                                     onClick={() => cancelReservation(reserva.id_reserva)}
                                     className="bg-red-600 text-white py-2 px-4 rounded hover:bg-red-700"
                                 >
-                                    Cancelar
+                                    Cancel
                                 </button>
                                 <button
                                     onClick={() => handleViewDetails(reserva)}
                                     className="bg-indigo-600 text-white py-2 px-4 rounded hover:bg-indigo-700"
                                 >
-                                    Ver Detalles
+                                    View Details
                                 </button>
                             </div>
                         </div>
@@ -136,43 +136,43 @@ const ReservationsPage = () => {
             <Modal
                 isOpen={isModalOpen}
                 onRequestClose={closeModal}
-                contentLabel="Detalles de la Reserva"
+                contentLabel="Reservation details"
                 className="bg-white p-8 rounded-lg shadow-lg max-w-lg mx-auto mt-10"
                 overlayClassName="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center"
                 ariaHideApp={false}
             >
-                <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center">Detalles de la Reserva</h2>
+                <h2 className="text-3xl font-bold text-indigo-800 mb-6 text-center">Reservation details</h2>
                 {selectedReservation ? (
                     <div className="space-y-6">
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Restaurante:</span> {selectedReservation.nombre_restaurante}
+                            <span className="font-semibold">Restaurant:</span> {selectedReservation.nombre_restaurante}
                         </p>
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Fecha:</span> {selectedReservation.fecha_reserva}
+                            <span className="font-semibold">Date:</span> {selectedReservation.fecha_reserva}
                         </p>
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Hora:</span> {selectedReservation.hora_reserva}
+                            <span className="font-semibold">Time:</span> {selectedReservation.hora_reserva}
                         </p>
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Personas:</span> {selectedReservation.numero_personas}
+                            <span className="font-semibold">People:</span> {selectedReservation.numero_personas}
                         </p>
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Estado:</span> {selectedReservation.estado}
+                            <span className="font-semibold">Status:</span> {selectedReservation.estado}
                         </p>
                         <p className="text-gray-700 text-lg">
-                            <span className="font-semibold">Comentarios:</span> {selectedReservation.comentarios || "N/A"}
+                            <span className="font-semibold">Comments:</span> {selectedReservation.comentarios || "N/A"}
                         </p>
                         <div className="flex justify-end">
                             <button
                                 onClick={closeModal}
                                 className="bg-gray-600 text-white py-3 px-6 rounded-lg hover:bg-gray-700 transition duration-300"
                             >
-                                Cerrar
+                                Close
                             </button>
                         </div>
                     </div>
                 ) : (
-                    <p className="text-gray-700 text-lg text-center">Cargando detalles...</p>
+                    <p className="text-gray-700 text-lg text-center">Loading Details...</p>
                 )}
             </Modal>
         </div>

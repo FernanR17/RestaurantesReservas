@@ -43,10 +43,10 @@ const RestaurantDetails = () => {
 
     if (!user) {
       Swal.fire({
-        title: "Inicia sesión",
-        text: "Debes iniciar sesión para realizar una reserva.",
+        title: "Login",
+        text: "You must login to make a reservation.",
         icon: "info",
-        confirmButtonText: "Aceptar",
+        confirmButtonText: "Accept",
       });
       return;
     }
@@ -63,8 +63,8 @@ const RestaurantDetails = () => {
       });
 
       Swal.fire({
-        title: "Reserva creada",
-        text: "Tu reserva ha sido registrada exitosamente.",
+        title: "Reservation created",
+        text: "Your reservation was registered successfully.",
         icon: "success",
         timer: 2000,
         showConfirmButton: false,
@@ -76,7 +76,7 @@ const RestaurantDetails = () => {
     } catch (error) {
       Swal.fire({
         title: "Error",
-        text: error.response?.data?.error || "No se pudo registrar la reserva.",
+        text: error.response?.data?.error || "Unable to register the reservation.",
         icon: "error",
       });
     }
@@ -88,7 +88,7 @@ const RestaurantDetails = () => {
         const res = await axios.get(`${apiUrl}/restaurantes/${id}`);
         setRestaurant(res.data);
       } catch (error) {
-        console.error("Error al obtener los detalles del restaurante:", error);
+        console.error("Error getting restaurant's details:", error);
       } finally {
         setLoading(false);
       }
@@ -100,7 +100,7 @@ const RestaurantDetails = () => {
         const sortedOpiniones = res.data.sort((a, b) => b.calificacion - a.calificacion).slice(0, 3);
         setOpiniones(sortedOpiniones || []);
       } catch (error) {
-        console.error("Error al obtener opiniones:", error);
+        console.error("Error while loading opinions:", error);
       }
     };
 
@@ -108,8 +108,8 @@ const RestaurantDetails = () => {
     fetchOpiniones();
   }, [id]);
 
-  if (loading) return <p className="text-center mt-20">Cargando detalles del restaurante...</p>;
-  if (!restaurant) return <p className="text-center mt-20">No se encontró el restaurante.</p>;
+  if (loading) return <p className="text-center mt-20">Loading restaurant details...</p>;
+  if (!restaurant) return <p className="text-center mt-20">Unable to find the restaurant.</p>;
 
   return (
     <>
@@ -131,7 +131,7 @@ const RestaurantDetails = () => {
               <p className="text-gray-700 mb-4">{restaurant.descripcion}</p>
               <div className="mb-4">
                 <FontAwesomeIcon icon={faMapMarkerAlt} className="text-blue-600 mr-2" />
-                <span className="text-gray-600">Ubicación: {restaurant.ubicacion}</span>
+                <span className="text-gray-600">Location: {restaurant.ubicacion}</span>
               </div>
               <div className="mb-4">
                 <FontAwesomeIcon icon={faClock} className="text-blue-600 mr-2" />
@@ -141,25 +141,25 @@ const RestaurantDetails = () => {
               </div>
               <div className="mb-4">
                 <FontAwesomeIcon icon={faTag} className="text-blue-600 mr-2" />
-                <span className="text-gray-600">Categoría: {restaurant.categoria}</span>
+                <span className="text-gray-600">Category: {restaurant.categoria}</span>
               </div>
 
               <div className="mb-4">
-                <span className="font-semibold text-gray-700">Capacidad máxima:</span>{" "}
+                <span className="font-semibold text-gray-700">Maximum capacity:</span>{" "}
                 <span className="text-gray-600">{restaurant.capacidad_maxima}</span>
               </div>
               <div className="mb-4">
-                <span className="font-semibold text-gray-700">Disponibilidad actual:</span>{" "}
+                <span className="font-semibold text-gray-700">Current availability:</span>{" "}
                 <span className="text-gray-600">
                   {/* Si existe lógica para calcular la disponibilidad */}
-                  {restaurant.disponibilidad_actual ?? "Datos no disponibles"}
+                  {restaurant.disponibilidad_actual ?? "Data not available"}
                 </span>
               </div>
               <button
                 onClick={handleOpenModal}
                 className="bg-blue-600 text-white py-2 px-4 rounded-lg mt-6 w-full"
               >
-                Reservar Ahora
+                Reserve Now
               </button>
             </div>
 
@@ -168,7 +168,7 @@ const RestaurantDetails = () => {
           <div className="md:w-1/3 bg-gray-100 rounded-lg shadow-md p-6">
             {/* Mapa dinámico */}
 
-            <h3 className="text-lg font-bold mb-4">Ubicación en el Mapa</h3>
+            <h3 className="text-lg font-bold mb-4">Map Location</h3>
             <iframe
               width="100%"
               height="300"
@@ -180,14 +180,14 @@ const RestaurantDetails = () => {
               allowFullScreen
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              title="Mapa del Restaurante"
+              title="Restaurant's map"
               className="rounded-lg"
             ></iframe>
 
           </div>
 
           <div className="md:w-1/3 bg-gray-100 rounded-lg shadow-md p-6">
-            <h3 className="text-lg font-bold mb-4">Opiniones Destacadas</h3>
+            <h3 className="text-lg font-bold mb-4">Featured Opinions</h3>
             {opiniones.length > 0 ? (
               opiniones.map((opinion, index) => (
                 <div key={index} className="mb-4 border-b border-gray-300 pb-4">
@@ -204,7 +204,7 @@ const RestaurantDetails = () => {
                 </div>
               ))
             ) : (
-              <p className="text-sm text-gray-500">No hay opiniones disponibles.</p>
+              <p className="text-sm text-gray-500">No opinions available yet.</p>
             )}
           </div>
         </div>
@@ -220,7 +220,7 @@ const RestaurantDetails = () => {
           <h2 className="text-4xl font-bold text-indigo-800 mb-8 text-center">Nueva Reserva</h2>
           <form onSubmit={handleSubmit} className="space-y-8">
             <div>
-              <label className="block text-gray-700 font-semibold mb-2 text-lg">Fecha</label>
+              <label className="block text-gray-700 font-semibold mb-2 text-lg">Date</label>
               <input
                 type="date"
                 name="fecha_reserva"
@@ -232,7 +232,7 @@ const RestaurantDetails = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-semibold mb-2 text-lg">Hora</label>
+              <label className="block text-gray-700 font-semibold mb-2 text-lg">Time</label>
               <input
                 type="time"
                 name="hora_reserva"
@@ -243,7 +243,7 @@ const RestaurantDetails = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-semibold mb-2 text-lg">Número de Personas</label>
+              <label className="block text-gray-700 font-semibold mb-2 text-lg">Number of people to reserve</label>
               <input
                 type="number"
                 name="numero_personas"
@@ -255,7 +255,7 @@ const RestaurantDetails = () => {
               />
             </div>
             <div>
-              <label className="block text-gray-700 font-semibold mb-2 text-lg">Comentarios</label>
+              <label className="block text-gray-700 font-semibold mb-2 text-lg">Comments</label>
               <textarea
                 name="comentarios"
                 value={reservationData.comentarios}
@@ -269,13 +269,13 @@ const RestaurantDetails = () => {
                 type="submit"
                 className="bg-indigo-600 text-white py-3 px-8 rounded-lg hover:bg-indigo-800 transition-all duration-300 text-lg"
               >
-                Reservar
+                Reserve
               </button>
               <button
                 onClick={handleCloseModal}
                 className="bg-gray-600 text-white py-3 px-8 rounded-lg hover:bg-gray-700 transition-all duration-300 text-lg"
               >
-                Cancelar
+                Cancel
               </button>
             </div>
           </form>

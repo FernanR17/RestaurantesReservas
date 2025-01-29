@@ -14,22 +14,22 @@ const Navbar = () => {
         <header className="bg-blue-700 text-white py-4">
             <nav className="container mx-auto px-4 flex justify-between items-center">
                 <h1 className="text-2xl font-bold">
-                    <Link to="/">GoTable - Restaurantes Reservas</Link>
+                    <Link to="/">SmartReserva - Restaurants</Link>
                 </h1>
                 <div className="flex items-center">
                 <Link to="/" className="px-4 py-2 text-white">
-                        Inicio
+                        Home
                     </Link>
                     <Link to="/catalogo" className="px-4 py-2 text-white">
-                        Catálogo
+                        Catalog
                     </Link>
                     {user && user.rol === "cliente" && (
                         <>
                             <Link to="/reservas" className="px-4 py-2 text-white">
-                                Mis Reservas
+                                My Reservations
                             </Link>
                             <Link to="/perfil" className="px-4 py-2 text-white">
-                                Perfil
+                                Profile
                             </Link>
                         </>
                     )}
@@ -39,7 +39,7 @@ const Navbar = () => {
                                 Dashboard
                             </Link>
                             <Link to="/perfil" className="px-4 py-2 text-white">
-                                Usuario
+                                Profile
                             </Link>
                         </>
                     )}
@@ -49,7 +49,7 @@ const Navbar = () => {
                                 Admin
                             </Link>
                             <Link to="/perfil" className="px-4 py-2 text-white">
-                                Usuario
+                                User
                             </Link>
                         </>
                     )}
@@ -58,11 +58,11 @@ const Navbar = () => {
                             onClick={handleLogout}
                             className="px-4 py-2 bg-red-600 rounded text-white"
                         >
-                            Cerrar Sesión
+                            Logout
                         </button>
                     ) : (
                         <Link to="/login" className="px-4 py-2 bg-green-600 rounded">
-                            Iniciar Sesión
+                            Login
                         </Link>
                     )}
                 </div>

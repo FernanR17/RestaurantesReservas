@@ -33,8 +33,8 @@ const RestaurantesPanel = () => {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al cargar restaurantes",
-        text: "No se pudieron obtener los datos. Por favor, intenta nuevamente.",
+        title: "Error while loading restaurants",
+        text: "Unable to get data, please try again later.",
       });
     }
   };
@@ -48,8 +48,8 @@ const RestaurantesPanel = () => {
     try {
       Swal.fire({
         title: selectedRestaurante
-          ? "Actualizando Restaurante..."
-          : "Creando Restaurante...",
+          ? "Updating Restaurant..."
+          : "Creating Restaurant...",
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading(),
       });
@@ -62,8 +62,8 @@ const RestaurantesPanel = () => {
         );
         Swal.fire({
           icon: "success",
-          title: "¡Actualizado!",
-          text: "El restaurante ha sido actualizado correctamente.",
+          title: "Updated!",
+          text: "Restaurant has been updated successfully.",
         });
       } else {
         // Crear restaurante
@@ -73,8 +73,8 @@ const RestaurantesPanel = () => {
         );
         Swal.fire({
           icon: "success",
-          title: "¡Creado!",
-          text: "El restaurante ha sido creado correctamente.",
+          title: "Created!",
+          text: "Restaurant has been created successfully.",
         });
       }
       fetchRestaurantes();
@@ -82,20 +82,20 @@ const RestaurantesPanel = () => {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al guardar el restaurante",
-        text: "Por favor, revisa los datos e intenta nuevamente.",
+        title: "Error saving restaurant's info",
+        text: "Please check your data and try again.",
       });
     }
   };
 
   const handleDelete = async (id) => {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará el restaurante permanentemente.",
+      title: "Are you sure?",
+      text: "This action will delete the Restaurant permanently.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
@@ -104,15 +104,15 @@ const RestaurantesPanel = () => {
           );
           Swal.fire({
             icon: "success",
-            title: "Eliminado",
-            text: "El restaurante ha sido eliminado correctamente.",
+            title: "Deleted",
+            text: "Restaurant has been deleted successfully.",
           });
           fetchRestaurantes();
         } catch (error) {
           Swal.fire({
             icon: "error",
-            title: "Error al eliminar",
-            text: "No se pudo eliminar el restaurante. Por favor, intenta nuevamente.",
+            title: "Error trying to delete",
+            text: "Unable to delete the restaurant, please try again later.",
           });
         }
       }
@@ -145,7 +145,7 @@ const RestaurantesPanel = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Gestión de Restaurantes</h1>
+      <h1 className="text-2xl font-bold mb-4">Restaurant Management</h1>
       {/* <button
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={() => openModal()}
@@ -154,17 +154,17 @@ const RestaurantesPanel = () => {
       </button> */}
       <Link to={"/nuevo-restaurante"}>
                      <button className="flex ml-auto select-none rounded-lg bg-indigo-800 uppercase py-4 px-8 text-center font-sans text-sm font-bold text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20">
-                       Registrar Restaurante
+                       Register Restaurant
                      </button>
                    </Link>
 
       <table className="table-auto w-full mt-4 border">
         <thead>
           <tr>
-            <th className="px-4 py-2">Nombre</th>
-            <th className="px-4 py-2">Ubicación</th>
-            <th className="px-4 py-2">Categoría</th>
-            <th className="px-4 py-2">Acciones</th>
+            <th className="px-4 py-2">Name</th>
+            <th className="px-4 py-2">Location</th>
+            <th className="px-4 py-2">Category</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -178,13 +178,13 @@ const RestaurantesPanel = () => {
                   className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
                   onClick={() => openModal(restaurante)}
                 >
-                  Editar
+                  Edit
                 </button>
                 <button
                   className="bg-red-500 text-white px-2 py-1 rounded"
                   onClick={() => handleDelete(restaurante.id_restaurante)}
                 >
-                  Eliminar
+                  Delete
                 </button>
               </td>
             </tr>
@@ -196,11 +196,11 @@ const RestaurantesPanel = () => {
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
           <div className="bg-white rounded-lg p-6 shadow-lg w-full max-w-xl">
             <h2 className="text-xl font-bold mb-4">
-              {selectedRestaurante ? "Editar Restaurante" : "Crear Restaurante"}
+              {selectedRestaurante ? "Edit Restaurant" : "Create Restaurant"}
             </h2>
             <form>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Nombre</label>
+                <label className="block text-sm font-bold mb-2">Name</label>
                 <input
                   type="text"
                   name="nombre"
@@ -216,13 +216,13 @@ const RestaurantesPanel = () => {
                 className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 onClick={closeModal}
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded"
                 onClick={handleCreateOrUpdate}
               >
-                {selectedRestaurante ? "Actualizar" : "Crear"}
+                {selectedRestaurante ? "Update" : "Create"}
               </button>
             </div>
           </div>
@@ -234,11 +234,11 @@ const RestaurantesPanel = () => {
         <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
         <div class="bg-white rounded-lg p-6 shadow-lg z-60 w-full max-w-xl">
             <h2 className="text-xl font-bold mb-4">
-              {selectedRestaurante ? 'Editar Restaurante' : 'Crear Restaurante'}
+              {selectedRestaurante ? 'Edit Restaurant' : 'Create Restaurant'}
             </h2>
             <form>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Nombre</label>
+                <label className="block text-sm font-bold mb-2">Name</label>
                 <input
                   type="text"
                   name="nombre"
@@ -248,7 +248,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Ubicación</label>
+                <label className="block text-sm font-bold mb-2">Location</label>
                 <input
                   type="text"
                   name="ubicacion"
@@ -258,7 +258,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Categoría</label>
+                <label className="block text-sm font-bold mb-2">Category</label>
                 <input
                   type="text"
                   name="categoria"
@@ -268,7 +268,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Horario de Apertura</label>
+                <label className="block text-sm font-bold mb-2">Opening Hours</label>
                 <input
                   type="time"
                   name="horario_apertura"
@@ -278,7 +278,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Horario de Cierre</label>
+                <label className="block text-sm font-bold mb-2">Closing Hours</label>
                 <input
                   type="time"
                   name="horario_cierre"
@@ -288,7 +288,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Descripción</label>
+                <label className="block text-sm font-bold mb-2">Description</label>
                 <textarea
                   name="descripcion"
                   value={formData.descripcion}
@@ -297,7 +297,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Capacidad Máxima</label>
+                <label className="block text-sm font-bold mb-2">Maximum capacity</label>
                 <input
                   type="number"
                   name="capacidad_maxima"
@@ -307,7 +307,7 @@ const RestaurantesPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Mapa URL</label>
+                <label className="block text-sm font-bold mb-2">URL Map</label>
                 <input
                   type="text"
                   name="mapa_url"
@@ -322,13 +322,13 @@ const RestaurantesPanel = () => {
                 className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 onClick={closeModal}
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded"
                 onClick={handleCreateOrUpdate}
               >
-                {selectedRestaurante ? 'Actualizar' : 'Crear'}
+                {selectedRestaurante ? 'Update' : 'Create'}
               </button>
             </div>
           </div>

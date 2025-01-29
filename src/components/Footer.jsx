@@ -24,17 +24,17 @@ const Footer = () => {
       {/* Navbar */}
       <div className="container mx-auto px-4 py-6 flex justify-between items-center border-b border-gray-600">
         <Link to="/" className="text-xl font-bold hover:text-indigo-400">
-          GoTable
+          SmartReserva
         </Link>
         <nav className="flex space-x-4">
           <Link to="/" className="hover:text-indigo-400">
-            Inicio
+            Home
           </Link>
           <Link to="/catalogo" className="hover:text-indigo-400">
-            Catálogo
+            Catalog
           </Link>
           <Link to="/reservas" className="hover:text-indigo-400">
-            Mis Reservas
+            My Reservations
           </Link>
         </nav>
       </div>
@@ -70,7 +70,7 @@ const Footer = () => {
       {/* Footer Info */}
       <div className="bg-gray-900 py-4 text-center">
         <p className="text-sm text-gray-400">
-          &copy; {new Date().getFullYear()} GoTable. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} SmartReserva. All rights reserved.
         </p>
       </div>
     </footer>

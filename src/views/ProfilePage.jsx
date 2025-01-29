@@ -20,7 +20,7 @@ const ProfilePage = () => {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "Debes iniciar sesión para acceder a esta página.",
+        text: "You have to login to view this page.",
       });
       return;
     }
@@ -38,7 +38,7 @@ const ProfilePage = () => {
         Swal.fire({
           icon: "error",
           title: "Error",
-          text: "No se pudo cargar la información del usuario.",
+          text: "Unable to load user's information.",
         });
       } finally {
         setLoading(false);
@@ -60,33 +60,33 @@ const ProfilePage = () => {
       await axios.put(`${apiUrl}/usuarios/${user.id_usuario}`, formData);
       Swal.fire({
         icon: "success",
-        title: "Perfil actualizado",
-        text: "Tu información ha sido actualizada correctamente.",
+        title: "Profile Updated",
+        text: "Your information has been updated successfully.",
       });
     } catch (error) {
       Swal.fire({
         icon: "error",
         title: "Error",
-        text: "No se pudo actualizar el perfil.",
+        text: "Unable to update profile.",
       });
     }
   };
 
   if (!user) {
-    return <p className="text-center mt-20">Redirigiendo...</p>;
+    return <p className="text-center mt-20">Reloading...</p>;
   }
 
   if (loading) {
-    return <p className="text-center mt-20">Cargando perfil...</p>;
+    return <p className="text-center mt-20">Loading profile...</p>;
   }
 
   return (
     <div className="container mx-auto px-4 py-8">
       <div className="bg-white shadow-md rounded-lg p-6">
-        <h1 className="text-3xl font-bold text-indigo-800 mb-4">Mi Perfil</h1>
+        <h1 className="text-3xl font-bold text-indigo-800 mb-4">My Profile</h1>
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Nombre</label>
+            <label className="block text-gray-700 font-semibold mb-2">Name</label>
             <input
               type="text"
               name="nombre"
@@ -97,7 +97,7 @@ const ProfilePage = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Correo Electrónico</label>
+            <label className="block text-gray-700 font-semibold mb-2">Email</label>
             <input
               type="email"
               name="email"
@@ -108,7 +108,7 @@ const ProfilePage = () => {
             />
           </div>
           <div>
-            <label className="block text-gray-700 font-semibold mb-2">Teléfono</label>
+            <label className="block text-gray-700 font-semibold mb-2">Phone Number</label>
             <input
               type="text"
               name="telefono"
@@ -122,7 +122,7 @@ const ProfilePage = () => {
               type="submit"
               className="bg-indigo-600 text-white py-2 px-6 rounded-lg hover:bg-indigo-800"
             >
-              Actualizar
+              Update
             </button>
           </div>
         </form>

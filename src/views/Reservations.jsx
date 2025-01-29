@@ -25,7 +25,7 @@ const Reservations = () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-2xl font-bold mb-6">Mis Reservas</h1>
+      <h1 className="text-2xl font-bold mb-6">My Reservations</h1>
       {reservations.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {reservations.map((reservation) => (
@@ -37,19 +37,19 @@ const Reservations = () => {
                 {reservation.nombre_restaurante}
               </h2>
               <p className="text-gray-700">
-                Fecha: {reservation.fecha_reserva}
+                Date: {reservation.fecha_reserva}
               </p>
               <p className="text-gray-700">
-                Hora: {reservation.hora_reserva}
+                Time: {reservation.hora_reserva}
               </p>
               <p className="text-gray-700">
-                Personas: {reservation.numero_personas}
+                People: {reservation.numero_personas}
               </p>
             </div>
           ))}
         </div>
       ) : (
-        <p className="text-gray-600">No tienes reservas actualmente.</p>
+        <p className="text-gray-600">You don't have any reservations yet.</p>
       )}
     </div>
   );

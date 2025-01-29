@@ -23,7 +23,7 @@ const Catalog = () => {
       const res = await axios.get(`${apiUrl}/restaurantes`, config);
       setDataRestaurant(res.data);
     } catch (error) {
-      console.error("Error al obtener los restaurantes:", error);
+      console.error("Error getting restaurants' info:", error);
     }
   };
 
@@ -39,7 +39,7 @@ const Catalog = () => {
              <div className="mb-8">
              <Link to={"/nuevo-restaurante"}>
                <button className="flex ml-auto select-none rounded-lg bg-indigo-800 uppercase py-4 px-8 text-center font-sans text-sm font-bold text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20">
-                 Registrar Restaurante
+                 Register Restaurant
                </button>
              </Link>
            </div>
@@ -65,18 +65,18 @@ const Catalog = () => {
                   </h2>
                   <p className="text-gray-700 mb-2">{item.descripcion}</p>
                   <p className="text-sm text-gray-500">
-                    Ubicación: {item.ubicacion}
+                    Location: {item.ubicacion}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Categoría: {item.categoria}
+                    Category: {item.categoria}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Horario: {item.horario_apertura} - {item.horario_cierre}
+                    Work Schedule: {item.horario_apertura} - {item.horario_cierre}
                   </p>
                   <div className="mt-4">
                   <Link to={`/restaurantes/${item.id_restaurante}`}>
                       <button className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700">
-                        Ver Detalles
+                        View details
                       </button>
                     </Link>
                   </div>
@@ -85,7 +85,7 @@ const Catalog = () => {
             ))
           ) : (
             <div className="text-center col-span-full">
-              No hay restaurantes registrados
+              No restaurants registered yet.
             </div>
           )}
         </div>

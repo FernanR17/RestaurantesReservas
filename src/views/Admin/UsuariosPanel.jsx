@@ -25,8 +25,8 @@ const UsuariosPanel = () => {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al cargar usuarios",
-        text: "No se pudieron obtener los datos. Por favor, intenta nuevamente.",
+        title: "Error loading users",
+        text: "Unable to get users' data, please try again later.",
       });
     }
   };
@@ -40,8 +40,8 @@ const UsuariosPanel = () => {
     try {
       Swal.fire({
         title: selectedUsuario
-          ? "Actualizando Usuario..."
-          : "Creando Usuario...",
+          ? "Updating User..."
+          : "Creating User...",
         allowOutsideClick: false,
         didOpen: () => Swal.showLoading(),
       });
@@ -54,16 +54,16 @@ const UsuariosPanel = () => {
         );
         Swal.fire({
           icon: "success",
-          title: "¡Actualizado!",
-          text: "El usuario ha sido actualizado correctamente.",
+          title: "Updated!",
+          text: "User has been updated successfully.",
         });
       } else {
         // Crear usuario
         await axios.post("http://localhost/restaurante/api.php/register", formData);
         Swal.fire({
           icon: "success",
-          title: "¡Creado!",
-          text: "El usuario ha sido creado correctamente.",
+          title: "Created!",
+          text: "User has been created successfully.",
         });
       }
       fetchUsuarios();
@@ -71,35 +71,35 @@ const UsuariosPanel = () => {
     } catch (error) {
       Swal.fire({
         icon: "error",
-        title: "Error al guardar el usuario",
-        text: "Por favor, revisa los datos e intenta nuevamente.",
+        title: "Error saving user's information",
+        text: "Please, check your data and try again.",
       });
     }
   };
 
   const handleDelete = async (id) => {
     Swal.fire({
-      title: "¿Estás seguro?",
-      text: "Esta acción eliminará al usuario permanentemente.",
+      title: "Are you sure?",
+      text: "This action will delete the user permanently.",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonText: "Sí, eliminar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: "Yes, delete",
+      cancelButtonText: "No, Cancel",
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
           await axios.delete(`http://localhost/restaurante/api.php/usuarios/${id}`);
           Swal.fire({
             icon: "success",
-            title: "Eliminado",
-            text: "El usuario ha sido eliminado correctamente.",
+            title: "Deleted",
+            text: "User has been deleted successfully.",
           });
           fetchUsuarios();
         } catch (error) {
           Swal.fire({
             icon: "error",
-            title: "Error al eliminar",
-            text: "No se pudo eliminar el usuario. Por favor, intenta nuevamente.",
+            title: "Error while deleting",
+            text: "Unable to delete user's data, please try again later.",
           });
         }
       }
@@ -132,17 +132,17 @@ const UsuariosPanel = () => {
         className="bg-blue-500 text-white px-4 py-2 rounded"
         onClick={() => openModal()}
       >
-        Crear Nuevo Usuario
+        Create new user
       </button>
 
       <table className="table-auto w-full mt-4 border">
         <thead>
           <tr>
-            <th className="px-4 py-2">Nombre</th>
+            <th className="px-4 py-2">Name</th>
             <th className="px-4 py-2">Email</th>
-            <th className="px-4 py-2">Teléfono</th>
-            <th className="px-4 py-2">Rol</th>
-            <th className="px-4 py-2">Acciones</th>
+            <th className="px-4 py-2">Phone number</th>
+            <th className="px-4 py-2">Role</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -157,13 +157,13 @@ const UsuariosPanel = () => {
                   className="bg-yellow-500 text-white px-2 py-1 rounded mr-2"
                   onClick={() => openModal(usuario)}
                 >
-                  Editar
+                  Edit
                 </button>
                 <button
                   className="bg-red-500 text-white px-2 py-1 rounded"
                   onClick={() => handleDelete(usuario.id_usuario)}
                 >
-                  Eliminar
+                  Delete
                 </button>
               </td>
             </tr>
@@ -179,7 +179,7 @@ const UsuariosPanel = () => {
             </h2>
             <form>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Nombre</label>
+                <label className="block text-sm font-bold mb-2">Name</label>
                 <input
                   type="text"
                   name="nombre"
@@ -199,7 +199,7 @@ const UsuariosPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Teléfono</label>
+                <label className="block text-sm font-bold mb-2">Phone Number</label>
                 <input
                   type="text"
                   name="telefono"
@@ -209,21 +209,21 @@ const UsuariosPanel = () => {
                 />
               </div>
               <div className="mb-4">
-                <label className="block text-sm font-bold mb-2">Rol</label>
+                <label className="block text-sm font-bold mb-2">Role</label>
                 <select
                   name="rol"
                   value={formData.rol}
                   onChange={handleInputChange}
                   className="w-full p-2 border rounded"
                 >
-                  <option value="cliente">Cliente</option>
-                  <option value="restaurante">Restaurante</option>
-                  <option value="admin">Administrador</option>
+                  <option value="cliente">Client</option>
+                  <option value="restaurante">Restaurant</option>
+                  <option value="admin">Administrator</option>
                 </select>
               </div>
               {!selectedUsuario && (
                 <div className="mb-4">
-                  <label className="block text-sm font-bold mb-2">Contraseña</label>
+                  <label className="block text-sm font-bold mb-2">Password</label>
                   <input
                     type="password"
                     name="password"
@@ -239,13 +239,13 @@ const UsuariosPanel = () => {
                 className="bg-gray-500 text-white px-4 py-2 rounded mr-2"
                 onClick={closeModal}
               >
-                Cancelar
+                Cancel
               </button>
               <button
                 className="bg-blue-500 text-white px-4 py-2 rounded"
                 onClick={handleCreateOrUpdate}
               >
-                {selectedUsuario ? "Actualizar" : "Crear"}
+                {selectedUsuario ? "Update" : "Create"}
               </button>
             </div>
           </div>
